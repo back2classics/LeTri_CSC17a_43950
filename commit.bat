@@ -1,5 +1,5 @@
 git add --all
 git config --global user.email "tri032le@gmail.com"
 git config --global user.name "Tri Le"
-git commit -m "Review Hmwk Ch 1-8"
+git commit -m "Hmwk 3 - Ch 10 Problems"
 git push origin master
