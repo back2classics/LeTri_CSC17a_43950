@@ -15,16 +15,104 @@ struct Bureau{
     string topic;
     float fee;
 };
+struct MovieData{
+    string title;
+    string directr;
+    unsigned short year;
+    unsigned short time;
+    float cost;
+    float revenue;
+};
 
+MovieData* info(MovieData*, int);
+void print(MovieData*, int);
 Bureau* fill(Bureau*, int);
 void output(Bureau*, int);
+void ch11_1_2();
 void ch11_9();
 
 int main(int argc, char** argv) {
 
-    ch11_9();
+    char menu;
+    int choice;
+    do{
+    do{
+        cout << "Enter [1] to display Chapter 11 Problems 1 and 2: " << endl;
+        cout << "Enter [2] to display Chapter 11 Problem 9: " << endl;
+        cout << "Enter [3] to exit the program: " << endl;
+        cin >> choice;
+        cin.clear();
+        cin.ignore();
+        do{
+        if(choice != 1 && choice != 2 && choice != 3)
+        {
+            cout << "Invalid input, please enter again: ";
+            cin >> choice;
+            cin.clear();
+            cin.ignore();
+        }
+        }while(choice != 1 && choice != 2 && choice != 3);
+        cout << endl;
+    }while(choice != 1 && choice != 2 && choice != 3);
+    if(choice == 1){
+        ch11_1_2();
+    }
+    else if(choice == 2){
+        ch11_9();
+    }
+    else
+    {
+        cout << "Are you sure you want to exit?" << endl;
+    }
+    cout << "Would you like to go back to the main menu?" << endl;
+    cout << "Enter [Y] or [N]: ";
+    cin >> menu;
+    cout << endl;
+    }while(tolower(menu) == 'y');
     
 return 0;
+}
+
+MovieData* info(MovieData* movie, int SIZE){
+    MovieData* temp = new MovieData[SIZE];
+    for(int i = 0; i < SIZE; i++){
+        cout << "Enter the movie title of movie " << (i + 1) << ": ";
+        getline(cin, temp[i].title);
+        cout << "Enter the director of movie " << (i + 1) << ": ";
+        getline(cin, temp[i].directr);
+        cout << "Enter the year movie " << (i + 1) << " was produced in: ";
+        cin >> temp[i].year;
+        cout << "Enter the running time (in minutes) of movie " << (i + 1) << ": ";
+        cin >> temp[i].time;
+        cout << "Enter the total costs of production for movie " << (i + 1)
+             << ": $";   
+        cin >> temp[i].cost;
+        cout << "Enter the revenue of movie " << (i + 1) << "'s first year: $";
+        cin >> temp[i].revenue;
+        cin.ignore();
+        cout << endl;
+    }
+    return temp;
+}
+
+void print(MovieData* movie, int SIZE){
+    for(int i = 0; i < SIZE; i++){
+        cout << "Movie: " << (i + 1) << endl;
+        cout << "Title: " << movie[i].title << endl;
+        cout << "Director: " << movie[i].directr << endl;
+        cout << "Year produced: " << movie[i].year << endl;
+        cout << "Total run time: " << movie[i].time << " minutes" << endl;
+        cout << "Total profits: $" << movie[i].revenue - movie[i].cost << endl; 
+        cout << "_______________________________" << endl;
+    }
+}
+
+void ch11_1_2(){
+    const int MOVIES = 2;
+    MovieData* titles = new MovieData[MOVIES];
+    titles = info(titles, MOVIES);
+    print(titles, MOVIES);
+    delete [] titles;
 }
 
 Bureau* fill(Bureau *s, int SIZE){
@@ -33,11 +121,12 @@ Bureau* fill(Bureau *s, int SIZE){
     cout << "Enter the data of the " << SIZE << " speakers." << endl;
     for(int i = 0; i < SIZE; i++){
         cout << "Name of speaker " << (i + 1) << ": ";
-        cin >> ptr[i].name;
+        getline(cin, ptr[i].name);
         cout << "Telephone number of speaker " << (i + 1) << ": ";
         cin >> ptr[i].tele;
         cout << "Topic chosen by speaker " << (i + 1) << ": ";
-        cin >> ptr[i].topic;
+        cin.ignore();
+        getline(cin, ptr[i].topic);
         cout << "Fee required for speaker " << (i + 1) << ": $";
         do{
         cin >> ptr[i].fee;
@@ -46,8 +135,10 @@ Bureau* fill(Bureau *s, int SIZE){
         }
         }
         while(ptr[i].fee < 0);
+        cin.ignore();
         cout << endl;
-    }
+        }
+    
     return ptr;
 }
 void output(Bureau *s, int SIZE){
@@ -125,7 +216,7 @@ void ch11_9(){
     else{
         cout << "Are you sure you are done?" << endl;
     }
-    cout << "Would you like to go back to the main menu?" << endl;
+    cout << "Would you like to go back to the menu?" << endl;
     cout << "Enter [Y] or [N]: ";
     cin >> yes;
     }while(tolower(yes) == 'y');
