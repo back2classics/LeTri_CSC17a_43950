@@ -56,7 +56,79 @@ void ch12_11();
 
 int main(int argc, char** argv) {
 
-    
+    char menu;
+    int choice;
+    do{
+    do{
+        cout << "Enter [1] to display Chapter 10 Problems 3: " << endl;
+        cout << "Enter [2] to display Chapter 10 Problem 4: " << endl;
+        cout << "Enter [3] to display Chapter 10 Problem 6: " << endl;
+        cout << "Enter [4] to display Chapter 11 Problem 1 and 2: " << endl;
+        cout << "Enter [5] to display Chapter 11 Problem 9: " << endl;
+        cout << "Enter [6] to display Chapter 12 Problem 1: " << endl;
+        cout << "Enter [7] to display Chapter 12 Problem 7: " << endl;
+        cout << "Enter [8] to display Chapter 12 Problem 8: " << endl;
+        cout << "Enter [9] to display Chapter 12 Problem 11: " << endl;
+        cout << "Enter [0] to exit the program: " << endl;
+        cin >> choice;
+        cin.clear();
+        cin.ignore();
+        do{
+        if(choice != 1 && choice != 2 && choice != 3 && 
+           choice != 4 && choice != 5 && choice != 6 &&
+           choice != 7 && choice != 8 && choice != 9 &&
+           choice != 0)
+        {
+            cout << "Invalid input, please enter again: ";
+            cin >> choice;
+            cin.clear();
+            cin.ignore();
+        }
+        }while(choice != 1 && choice != 2 && choice != 3 &&
+               choice != 4 && choice != 5 && choice != 6 &&
+               choice != 7 && choice != 8 && choice != 9 &&
+               choice != 0);
+        cout << endl;
+    }while(choice != 1 && choice != 2 && choice != 3 &&
+           choice != 4 && choice != 5 && choice != 6 &&
+           choice != 7 && choice != 8 && choice != 9 &&
+           choice != 0);
+    if(choice == 1){
+        ch10_3();
+    }
+    else if(choice == 2){
+        ch10_4();
+    }
+    else if(choice == 3){
+        ch10_6();
+    }
+    else if(choice == 4){
+        ch11_1_2();
+    }
+    else if(choice == 5){
+        ch11_9();
+    }
+    else if(choice == 6){
+        ch12_1();
+    }
+    else if(choice == 7){
+        ch12_7();
+    }
+    else if(choice == 8){
+        ch12_8();
+    }
+    else if(choice == 9){
+        ch12_11();
+    }
+    else
+    {
+        cout << "Are you sure you want to exit?" << endl;
+    }
+    cout << "Would you like to go back to the main menu?" << endl;
+    cout << "Enter [Y] or [N]: ";
+    cin >> menu;
+    cout << endl;
+    }while(tolower(menu) == 'y');
     
     return 0;
 }
@@ -64,20 +136,16 @@ int main(int argc, char** argv) {
 void ch10_3(){
     const int SIZE = 100;
     char sent[SIZE];
-    
     cout << "Enter a sentence: ";
     cin.getline(sent, SIZE);
-    
     cout << "There are " << wCountr(sent) << " word(s) in this sentence." << endl;
 }
 
 void ch10_4(){
     const int SIZE = 100;
     char sent[SIZE];
-    
     cout << "Enter the same sentence: ";
     cin.getline(sent, SIZE);
-    
     cout << "The average number of letters in each word is: " << avgLett(sent)
          << endl;
 }
@@ -358,7 +426,7 @@ void ch11_9(){
 }
 
 void ch12_1(){
-    const int MAXLINE = 10;
+    const int MAXLINE = 10; //Maximum amount of lines the file will display
     fstream file;
     cout << "Opening the file..." << endl;
     file.open("num1.txt", ios::in);
