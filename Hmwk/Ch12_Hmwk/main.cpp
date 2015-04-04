@@ -59,7 +59,12 @@ void ch12_11(){
     cin >> divis.name[i];
     for(int j = 0; j < NUM; j++){
     cout << "Enter the sales for quarter " << (j + 1) << ": $";
+    do{
     cin >> divis.sales[i][j];
+    if(divis.sales[i][j] < 0){
+        cout << "Invalid amount. Please enter again: ";
+    }
+    }while(divis.sales[i][j] < 0);
     }
     cout << endl;
     }
@@ -67,8 +72,8 @@ void ch12_11(){
     entity.close();
     
     entity.open("company.txt", ios::in | ios::binary);
+    cout << "Here are the company divisions on the file: " << endl;
     entity.read(reinterpret_cast<char *>(&entity), sizeof(entity));
-    
         for(int i = 0; i < NUM; i++){
         cout << "Division name: ";
         cout << divis.name[i] << endl;
@@ -78,7 +83,6 @@ void ch12_11(){
         }
         cout << endl;
         }
-    
     cout << "File has been completely read." << endl;
     entity.close();
 }
