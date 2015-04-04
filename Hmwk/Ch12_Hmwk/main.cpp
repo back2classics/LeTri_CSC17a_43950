@@ -9,17 +9,93 @@
 #include <iostream>
 #include <fstream>
 #include <cctype>
+
 using namespace std;
 
+struct Company{
+    string name[4];
+    float sales[4][4];
+};
+
 int ch12_7();
+void ch12_8();
+void ch12_11();
+void arrayToFile(fstream &, char[], int *, int);
+void fileToArray(fstream &, char[], int *, int);
 
 int main(int argc, char** argv) {
 
-    ch12_7();
+    ch12_11();
     
     return 0;
 }
 
+void arrayToFile(fstream &file, char name[], int* num, int SIZE){
+    file.open(name, ios::out | ios::binary);
+    cout << "Writing the contents of the array to the file..." << endl;
+    file.write(reinterpret_cast<char *>(num), sizeof(num));
+    for(int i = 0; i < SIZE; i++){
+        cout << num[i] << " ";
+    }
+    cout << endl;
+    file.close();
+}
+void fileToArray(fstream &file, char name[], int* num, int SIZE){
+    file.open(name, ios::in | ios::binary);
+    cout << "Reading the contents of the file into an array..." << endl;
+    file.read(reinterpret_cast<char *>(num), sizeof(num));
+    for(int i = 0; i < SIZE; i++){
+        cout << num[i] << " ";
+    }
+    cout << endl;
+    file.close();
+}
+void ch12_11(){
+    const int NUM = 4;
+    Company divis;
+    fstream entity("company.txt", ios::out | ios::binary);
+    for(int i = 0; i < NUM; i++){
+    cout << "Enter the division name: ";
+    cin >> divis.name[i];
+    for(int j = 0; j < NUM; j++){
+    cout << "Enter the sales for quarter " << (j + 1) << ": $";
+    cin >> divis.sales[i][j];
+    }
+    cout << endl;
+    }
+    entity.write(reinterpret_cast<char *>(&entity), sizeof(entity));
+    entity.close();
+    
+    entity.open("company.txt", ios::in | ios::binary);
+    entity.read(reinterpret_cast<char *>(&entity), sizeof(entity));
+    
+        for(int i = 0; i < NUM; i++){
+        cout << "Division name: ";
+        cout << divis.name[i] << endl;
+        for(int j = 0; j < NUM; j++){
+        cout << "Quarter " << (j + 1) << " sales: $";
+        cout << divis.sales[i][j] << endl;
+        }
+        cout << endl;
+        }
+    
+    cout << "File has been completely read." << endl;
+    entity.close();
+}
+
+void ch12_8(){
+    const int SIZE = 10;
+    int numbers[SIZE] = {1,2,3,4,5,6,7,8,9,10};
+    int *ptr = numbers;
+    int othrNum[SIZE] = {0};
+    int *othrPtr = othrNum;
+    fstream numFile;
+    char name[51] = "numbers.txt";
+    arrayToFile(numFile, name, ptr, SIZE);
+    fileToArray(numFile, name, othrNum, SIZE);
+    
+    numFile.close();
+}
 int ch12_7(){
     fstream file1, file2; //files that are to be created by user
     const int SIZE = 51;
