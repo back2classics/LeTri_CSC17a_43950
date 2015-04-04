@@ -94,30 +94,39 @@ int main(int argc, char** argv) {
            choice != 7 && choice != 8 && choice != 9 &&
            choice != 0);
     if(choice == 1){
+        cout << "This is problem 1: " << endl;
         ch10_3();
     }
     else if(choice == 2){
+        cout << "This is problem 2: " << endl;
         ch10_4();
     }
     else if(choice == 3){
+        cout << "This is problem 3: " << endl;
         ch10_6();
     }
     else if(choice == 4){
+        cout << "This is problem 4 and 5: " << endl;
         ch11_1_2();
     }
     else if(choice == 5){
+        cout << "This is problem 6: " << endl;
         ch11_9();
     }
     else if(choice == 6){
+        cout << "This is problem 7: " << endl;
         ch12_1();
     }
     else if(choice == 7){
+        cout << "This is problem 8: " << endl;
         ch12_7();
     }
     else if(choice == 8){
+        cout << "This is problem 9: " << endl;
         ch12_8();
     }
     else if(choice == 9){
+        cout << "This is problem 10: " << endl;
         ch12_11();
     }
     else
