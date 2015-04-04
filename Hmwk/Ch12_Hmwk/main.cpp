@@ -20,36 +20,39 @@ struct Company{
 int ch12_7();
 void ch12_8();
 void ch12_11();
-void arrayToFile(fstream &, char[], int *, int);
-void fileToArray(fstream &, char[], int *, int);
+void arrayToFile(string, int *, int);
+void fileToArray(string, int *, int);
 
 int main(int argc, char** argv) {
 
-    ch12_11();
+    ch12_8();
     
     return 0;
 }
 
-void arrayToFile(fstream &file, char name[], int* num, int SIZE){
-    file.open(name, ios::out | ios::binary);
-    cout << "Writing the contents of the array to the file..." << endl;
+void arrayToFile(string filName, int *num, int SIZE){
+    fstream file;
+    file.open(filName.c_str(), ios::out | ios::binary);
+    //Write the contents of the array to the file
     file.write(reinterpret_cast<char *>(num), sizeof(num));
-    for(int i = 0; i < SIZE; i++){
-        cout << num[i] << " ";
-    }
-    cout << endl;
     file.close();
 }
-void fileToArray(fstream &file, char name[], int* num, int SIZE){
-    file.open(name, ios::in | ios::binary);
-    cout << "Reading the contents of the file into an array..." << endl;
+
+void fileToArray(string filName, int *num, int SIZE){
+    fstream file;
+    file.open(filName.c_str(), ios::in | ios:: binary);
+    cout << "Now reading the data back into memory." << endl;
+    //Read the contents of the file into the array
     file.read(reinterpret_cast<char *>(num), sizeof(num));
+    cout << "Here are the contents of the array: " << endl;
+    //Outputting the contents of the array
     for(int i = 0; i < SIZE; i++){
         cout << num[i] << " ";
     }
     cout << endl;
     file.close();
 }
+
 void ch12_11(){
     const int NUM = 4;
     Company divis;
@@ -90,15 +93,21 @@ void ch12_11(){
 void ch12_8(){
     const int SIZE = 10;
     int numbers[SIZE] = {1,2,3,4,5,6,7,8,9,10};
-    int *ptr = numbers;
-    int othrNum[SIZE] = {0};
-    int *othrPtr = othrNum;
-    fstream numFile;
-    char name[51] = "numbers.txt";
-    arrayToFile(numFile, name, ptr, SIZE);
-    fileToArray(numFile, name, othrNum, SIZE);
-    
-    numFile.close();
+    int *ptr;
+    ptr = numbers;
+    int othrNum[SIZE];
+    int *othrPtr;
+    othrPtr = numbers;
+    string filName;
+    cout << "Enter the file name: ";
+    cin >> filName;
+    cout << "Writing contents to the file..." << endl;
+    arrayToFile(filName, ptr, SIZE);
+    cout << "File has been successfully written to." << endl;
+    cout << endl;
+    cout << "Now reading contents from the file into the array..." << endl;
+    fileToArray(filName, othrPtr, SIZE);
+    cout << "File has been successfully read to." << endl;
 }
 int ch12_7(){
     fstream file1, file2; //files that are to be created by user
