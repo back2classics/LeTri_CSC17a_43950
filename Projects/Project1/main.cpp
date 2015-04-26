@@ -49,52 +49,46 @@ int main(int argc, char** argv) {
     //cout << "===============Welcome to Battleships!===============" << endl;
     player = fill(player, ROW, COL); //fills player's board with "water"
     enemy = fill(enemy, ROW, COL); //fills enemy's board with "water"
-    //first ship placement
-    playerS[BOAT].size = boat; //player's first ship size is stored in structure
-    cout << "The first ship to be placed is the BOAT. The size of it is " << boat
-         << "." << endl;
-    playerS[BOAT].yaxis = setPosY(yaxis, coord); //player's ship axis is stored
-    yaxis = playerS[BOAT].yaxis;
-    cout << endl;
-    playerS[BOAT].xaxis = setPosX(xaxis, coord); //player's ship axis is stored
-    xaxis = playerS[BOAT].xaxis;
-    cout << endl;
-    cout << "Enter the desired orientation of the ship, where [v] is vertical"
-            " and [h] is horizontal: ";
-    while(playerS[BOAT].set != 'v' && playerS[BOAT].set != 'h'){
-        cin >> playerS[BOAT].set;
-        if(playerS[BOAT].set != 'v' && playerS[BOAT].set != 'h'){
-            cout << "Invalid input. Please enter again: ";
+    //Ship placement starts here!
+    int temp; //temp will store the next ship size because of irregular sized ships
+    for(int i=0; i<CARRIER + 1; i++){
+        if(i == 0){
+            temp = boat;
         }
-    }
-    place = playerS[BOAT].set;
-    checkPos(boat, place, yaxis, xaxis); //checks for valid ship coordinates
-    playerS[BOAT].xaxis = xaxis; //if changes were made to coordinates
-    playerS[BOAT].yaxis = yaxis; //they are restored into structure again
-    setShip(player, boat, place, yaxis, xaxis); //places the ships on the board
-    //second ship placement
-    playerS[CRUISER].size = cruiser; //player's second ship size is stored in structure
-    cout << "The second ship to be placed is the CRUISER. The size of it is " << cruiser
-         << "." << endl;
-    playerS[CRUISER].yaxis = setPosY(yaxis, coord); //player's ship axis is stored
-    yaxis = playerS[CRUISER].yaxis;
-    cout << endl;
-    playerS[CRUISER].xaxis = setPosX(xaxis, coord); //player's ship axis is stored
-    xaxis = playerS[CRUISER].xaxis;
-    cout << endl;
-    cout << "Enter the desired orientation of the ship, where [v] is vertical"
-            " and [h] is horizontal: ";
-    while(playerS[CRUISER].set != 'v' && playerS[CRUISER].set != 'h'){
-        cin >> playerS[CRUISER].set;
-        if(playerS[CRUISER].set != 'v' && playerS[CRUISER].set != 'h'){
-            cout << "Invalid input. Please enter again: ";
+        else if(i == 1){
+            temp = cruiser;
         }
+        else if(i == 2){
+            temp = sub;
+        }
+        else if(i == 3){
+            temp = ship;
+        }
+        else{
+            temp = carrier;
+        }
+        playerS[i].size = temp; //player's first ship size is stored in structure
+        cout << "The ship that is going to be placed is of size " << temp << "." << endl;
+        playerS[i].yaxis = setPosY(yaxis, coord); //player's ship axis is stored
+        yaxis = playerS[i].yaxis;
+        cout << endl;
+        playerS[i].xaxis = setPosX(xaxis, coord); //player's ship axis is stored
+        xaxis = playerS[i].xaxis;
+        cout << endl;
+        cout << "Enter the desired orientation of the ship, where [v] is vertical"
+                " and [h] is horizontal: ";
+        while(playerS[i].set != 'v' && playerS[i].set != 'h'){
+            cin >> playerS[i].set;
+            if(playerS[i].set != 'v' && playerS[i].set != 'h'){
+                cout << "Invalid input. Please enter again: ";
+            }
+        }
+        place = playerS[i].set;
+        checkPos(temp, place, yaxis, xaxis); //checks for valid ship coordinates
+        playerS[i].xaxis = xaxis; //if changes were made to coordinates
+        playerS[i].yaxis = yaxis; //they are restored into structure again
+        setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
     }
-    place = playerS[CRUISER].set;
-    checkPos(cruiser, place, yaxis, xaxis); //checks for valid ship coordinates
-    playerS[CRUISER].xaxis = xaxis; //if changes were made to coordinates
-    playerS[CRUISER].yaxis = yaxis; //they are restored into structure again
-    setShip(player, cruiser, place, yaxis, xaxis); //places the ships on the board
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     
