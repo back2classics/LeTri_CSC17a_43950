@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>ship.h</itemPath>
+      <itemPath>shoot.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -41,6 +42,8 @@
       </item>
       <item path="ship.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="shoot.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -65,6 +68,8 @@
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="ship.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="shoot.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

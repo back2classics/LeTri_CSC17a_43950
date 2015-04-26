@@ -14,6 +14,7 @@ using namespace std;
 
 //User Libraries
 #include "ship.h"
+#include "shoot.h"
 
 //Function Prototypes
 char **fill(char **, int, int); //fills the board with "water"
@@ -134,6 +135,16 @@ int main(int argc, char** argv) {
     eWinLose = winLose(enemy, ROW, COL, eWinLose);
     cout << "Player's win/lose condition is if " << pWinLose << " ships sink!" << endl;
     cout << "Enemy's win/lose condition is if " << eWinLose << " ships sink!" << endl;
+    cout << endl;
+    //Player's turn to fire at enemy begins here!
+    Shoot pShots[5];
+    Shoot eShots[5];
+    cout << "You can fire at the enemy 5 times!" << endl;
+    cout << "Choose your shot coordinates now!" << endl;
+    for(int i=0; i<5; i++){
+        pShots[i].shootY = setPosY(pShots[i].shootY, coord);
+        pShots[i].shootX = setPosX(pShots[i].shootX, coord);
+    }
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     outputE(enemy, ROW, COL); //for testing purposes
