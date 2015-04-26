@@ -33,7 +33,7 @@ bool eSink(char **, int, int); //checks if player has won
 int enemyShot(char **, int, int, int &); //counts how many shots have hit pShips
 bool yesChase(char **, int, int); //checks if enemy hit player ship
 void hitPlayer(char **, int, int); //places shots on player's board
-int chase(char **, int &, int &, int, int); //enemy AI will chase a ship if hit
+int chase(char **, int, int, int, int); //enemy AI will chase a ship if hit
 bool pSink(char **, int, int); //checks if enemy has won
 
 //Execution begins here!
@@ -415,7 +415,7 @@ void hitPlayer(char **player, int eShotY, int eShotX){
     }
 }
 
-int chase(char **player, int &eShotY, int &eShotX, int enemyHit, int follow){
+int chase(char **player, int eShotY, int eShotX, int enemyHit, int follow){
     follow = rand() % 2;
     if(follow == 0){
         eShotY = eShotY + 1;
