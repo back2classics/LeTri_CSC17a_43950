@@ -24,7 +24,8 @@ int setPosX(int, bool); //used to set the X coordinate of ship placement
 int setPosY(int, bool); //used to set the Y coordinate of ship placement
 int checkPos(int, char, int &, int &); //checks if ship will go off the board
 void setShip(char **, int, char, int, int); //places ships on the board
-void spawnE(char **, int, char, int, int); //spawns enemy's battlefield
+int checkE(int, char, int &, int &); //spawns enemy's battlefield
+void spawnE(char **, int, char, int, int);
 int winLose(char **, int, int, int); //condition for winning or losing the game
 
 //Execution begins here!
@@ -97,7 +98,8 @@ int main(int argc, char** argv) {
     //cout << "Scumbag " << eName << " has begun giving their orders!" << endl;
     //cout << eName << "'s turn will now begin." << endl;
     int eShip, pos; //eShip holds enemy ship size and pos holds orientation of ship
-    for(int i = 0; i < CARRIER + 1; i++){
+    for(int i=0; i<CARRIER + 1; i++){
+        cout << "Generating enemy battlefield..." << endl;
         if(i == 0){
             eShip = boat;
         }
@@ -125,7 +127,10 @@ int main(int argc, char** argv) {
         {
             enemyS[i].set = 'v';
         }
+        cout << "checkE is not working properly." << endl;
+        checkE(enemyS[i].size, enemyS[i].set, enemyS[i].yaxis, enemyS[i].xaxis);
         spawnE(enemy, enemyS[i].size, enemyS[i].set, enemyS[i].yaxis, enemyS[i].xaxis);
+        cout << "Made it passed spawnE." << endl;
     }
     //cout << eName << " and their crew are ready and prepared for battle!" << endl;
     
@@ -137,14 +142,14 @@ int main(int argc, char** argv) {
     cout << "Enemy's win/lose condition is if " << eWinLose << " ships sink!" << endl;
     cout << endl;
     //Player's turn to fire at enemy begins here!
-    Shoot pShots[5];
-    Shoot eShots[5];
-    cout << "You can fire at the enemy 5 times!" << endl;
-    cout << "Choose your shot coordinates now!" << endl;
-    for(int i=0; i<5; i++){
-        pShots[i].shootY = setPosY(pShots[i].shootY, coord);
-        pShots[i].shootX = setPosX(pShots[i].shootX, coord);
-    }
+//    Shoot pShots[5];
+//    Shoot eShots[5];
+//    cout << "You can fire at the enemy 5 times!" << endl;
+//    cout << "Choose your shot coordinates now!" << endl;
+//    for(int i=0; i<5; i++){
+//        pShots[i].shootY = setPosY(pShots[i].shootY, coord);
+//        pShots[i].shootX = setPosX(pShots[i].shootX, coord);
+//    }
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     outputE(enemy, ROW, COL); //for testing purposes
@@ -269,37 +274,38 @@ void setShip(char **player, int size, char place, int yaxis, int xaxis){
     }
 }
 
-void spawnE(char **enemy, int eShip, char ePlace, int enemyY, int enemyX){
+int checkE(int eShip, char ePlace, int &enemyY, int &enemyX){
     if(tolower(ePlace == 'h')){
-        GenerateX:
-        
         for(int i=0; i<eShip; i++){
             if((enemyX + i) > 9){
                 while((enemyX + i) > 9){
                     enemyX = rand() % 10;
-                    i = 0;
-                    goto GenerateX;
                 }
-            }
-            else{
-                enemy[enemyY][enemyX + i] = '#'; // horizontal ship position
             }
         }
     }
     else{
-        GenerateY:
-        
         for(int i = 0; i < eShip; i++){
             if((enemyY + i) > 9){
                 while((enemyY + i) > 9){
                     enemyY = rand() % 10;
-                    i = 0;
-                    goto GenerateY;
                 }
             }
-            else{
-                enemy[enemyX + i][enemyY] = '#'; // vertical ship position
-            }
+        }
+    }
+    return enemyY;
+    return enemyX;
+}
+
+void spawnE(char **enemy, int eShip, char ePlace, int enemyY, int enemyX){
+    if(tolower(ePlace == 'h')){
+        for(int i=0; i<eShip; i++){
+            enemy[enemyY][enemyX + i] = '#'; // horizontal ship position
+        }
+    }
+    else{
+        for(int i=0; i<eShip; i++){
+            enemy[enemyY + i][enemyX] = '#'; // vertical ship position
         }
     }
 }
