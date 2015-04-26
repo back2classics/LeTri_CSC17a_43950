@@ -21,8 +21,9 @@ void outputP(char **, int, int); //shows the player's side w/ or w/o ships and d
 void outputE(char **, int, int); //shows the enemy's side AFTER game ends
 int setPosX(int, bool); //used to set the X coordinate of ship placement
 int setPosY(int, bool); //used to set the Y coordinate of ship placement
-int checkPos(int, char, int &, int &); //checks if ship can be placed on board
-void setShip(char **, int, char, int, int); //places the ships on the board
+int checkPos(int, char, int &, int &); //checks if ship will go off the board
+void setShip(char **, int, char, int, int); //places ships on the board
+void spawnE(char **, int, char, int, int); //spawns enemy's battlefield
 
 //Execution begins here!
 int main(int argc, char** argv) {
@@ -30,9 +31,7 @@ int main(int argc, char** argv) {
     srand(time(0)); //used for randomly spawning enemy's board
     const int ROW = 10; //represents the x-axis of the board
     const int COL = 10; //represents the y-axis of the board
-    enum axis {A, B, C, D, E, F, G, H , I, J}; //used when choosing where to fire
     enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
-    
     char **player; //player's board
     char **enemy; //enemy's board
     Ship playerS[5]; //structure array of player's ships
@@ -46,7 +45,7 @@ int main(int argc, char** argv) {
     bool coord = false; //checks if ship coordinate chosen is true/false
     char place; //used to store ship's orientation to be passed into function
     
-    //cout << "===============Welcome to Battleships!===============" << endl;
+    cout << "===============Welcome to Battleships!===============" << endl;
     player = fill(player, ROW, COL); //fills player's board with "water"
     enemy = fill(enemy, ROW, COL); //fills enemy's board with "water"
     //Ship placement starts here!
@@ -89,6 +88,8 @@ int main(int argc, char** argv) {
         playerS[i].yaxis = yaxis; //they are restored into structure again
         setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
     }
+    //enemy's ship placement starts here!
+    
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     
@@ -172,8 +173,7 @@ int setPosY(int yaxis, bool coord){ //sets and validates the y-coordinate of shi
     return yaxis;
 }
 //checks validity of coordinates and orientation of the ships
-int checkPos(int size, char place, int &yaxis, int &xaxis)
-{
+int checkPos(int size, char place, int &yaxis, int &xaxis){
     if(tolower(place == 'h')){
         for(int i=0; i<size; i++){
             if((xaxis + i) > 9){
@@ -200,8 +200,7 @@ int checkPos(int size, char place, int &yaxis, int &xaxis)
     return yaxis;
 }
 //places the ships on the board according to the orientation selected
-void setShip(char **player, int size, char place, int yaxis, int xaxis)
-{
+void setShip(char **player, int size, char place, int yaxis, int xaxis){
     if(tolower(place == 'h')){
         for(int i=0; i<size; i++){
             player[yaxis][xaxis + i] = '#'; // horizontal ship position
@@ -210,6 +209,41 @@ void setShip(char **player, int size, char place, int yaxis, int xaxis)
     else{
         for(int i=0; i<size; i++){
             player[yaxis + i][xaxis] = '#'; // vertical ship position
+        }
+    }
+}
+
+void spawnE(char **enemy, int eShip, char ePlace, int enemyY, int enemyX){
+    if(tolower(ePlace == 'h')){
+        GenerateX:
+        
+        for(int i=0; i<eShip; i++){
+            if((enemyX + i) > 9){
+                while((enemyX + i) > 9){
+                    enemyX = rand() % 10;
+                    i = 0;
+                    goto GenerateX;
+                }
+            }
+            else{
+                enemy[enemyY][enemyX + i] = '#'; // horizontal ship position
+            }
+        }
+    }
+    else{
+        GenerateY:
+        
+        for(int i = 0; i < eShip; i++){
+            if((enemyY + i) > 9){
+                while((enemyY + i) > 9){
+                    enemyY = rand() % 10;
+                    i = 0;
+                    goto GenerateY;
+                }
+            }
+            else{
+                enemy[enemyX + i][enemyY] = '#'; // vertical ship position
+            }
         }
     }
 }
