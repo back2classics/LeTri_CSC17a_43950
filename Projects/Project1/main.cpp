@@ -360,3 +360,48 @@ bool eSink(char **enemy, int myHit, int pWinLose){
         return false;
     }
 }
+
+//int enemyShot(char **player, int eShotY, int eShotX, int &enemyHit, int &yesHit){
+//    if(player[eShotY][eShotX] == '#'){
+//        cout << "Enemy shot hit one of your ships!" << endl;
+//        enemyHit++;
+//        yesHit++;
+//    }
+//    else{
+//        cout << "Enemy shot missed!" << endl;
+//    }
+//    return enemyHit;
+//    return yesHit;
+//}
+
+//void hitPlayer(char **player, int eShotY, int eShotX){
+//    if(player[eShotY][eShotX] == '#'){
+//        player[eShotY][eShotX] = 'X';
+//    }
+//}
+
+//int chase(char **player, int &eShotY, int &eShotX, int enemyHit, int shootWhere){
+//    if(enemyHit <= 15){
+//        shootWhere = rand() % 2;
+//        if(shootWhere == 0){
+//            eShotY = eShotY + 1;
+//        }
+//        else{
+//            eShotX = eShotX + 1;
+//        }
+//    }
+//    return eShotY;
+//    return eShotX;
+//}
+
+//bool pSink(char **player, int enemyHit)
+//{
+//    if(enemyHit == 15)
+//    {
+//        return true;
+//    }
+//    else
+//    {
+//        return false;
+//    }
+//}
