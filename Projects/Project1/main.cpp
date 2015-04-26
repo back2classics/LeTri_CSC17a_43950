@@ -89,9 +89,41 @@ int main(int argc, char** argv) {
         setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
     }
     //enemy's ship placement starts here!
-    
+    int eShip, pos;
+    for(int i = 0; i < CARRIER + 1; i++){
+        if(i == 0){
+            eShip = boat;
+        }
+        else if(i == 1){
+            eShip = cruiser;
+        }
+        else if(i == 2){
+            eShip = sub;
+        }
+        else if(i == 3){
+            eShip = ship;
+        }
+        else{
+            eShip = carrier;
+        }
+        enemyS[i].size = eShip;
+        enemyS[i].xaxis = rand() % 10;
+        enemyS[i].yaxis = rand() % 10;
+        pos = rand() % 2;
+        if(pos == 0)
+        {
+            enemyS[i].set = 'h';
+        }
+        else
+        {
+            enemyS[i].set = 'v';
+        }
+        spawnE(enemy, enemyS[i].size, enemyS[i].set, enemyS[i].yaxis, enemyS[i].xaxis);
+    }
+    cout << "The enemy's battlefield has been generated!" << endl;
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
+    outputE(enemy, ROW, COL); //for testing purposes
     
     for(int i=0; i<ROW; i++){ //deallocating the player's board
         delete [] player[i]; //internal memory deallocated first
