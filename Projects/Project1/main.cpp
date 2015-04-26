@@ -182,7 +182,7 @@ int main(int argc, char** argv) {
         }
         enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
         hitPlayer(player, eShots[i].shootY, eShots[i].shootX);
-        yesHit = yesChase(player, eShots[i].shootY, eShots[i].shootX, yesHit);
+        //yesHit = yesChase(player, eShots[i].shootY, eShots[i].shootX, yesHit);
         eCheck = pSink(player, enemyHit, eWinLose);
         if(eCheck == true){
             cout << "Enemy has successfully sank all of your ships!" << endl;
@@ -419,12 +419,12 @@ int chase(char **player, int &eShotY, int &eShotX, int enemyHit, int follow){
     follow = rand() % 2;
     if(follow == 0){
         eShotY = eShotY + 1;
+        return eShotY;
     }
     else{
         eShotX = eShotX + 1;
+        return eShotX;
     }
-    return eShotY;
-    return eShotX;
 }
 
 bool pSink(char **player, int enemyHit, int eWinLose){
