@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 //Global Constants
@@ -23,6 +24,7 @@ int setPosY(int, bool); //used to set the Y coordinate of ship placement
 int checkPos(int, char, int &, int &); //checks if ship will go off the board
 void setShip(char **, int, char, int, int); //places ships on the board
 void spawnE(char **, int, char, int, int); //spawns enemy's battlefield
+int winLose(char **, int, int, int); //condition for winning or losing the game
 
 //Execution begins here!
 int main(int argc, char** argv) {
@@ -31,7 +33,7 @@ int main(int argc, char** argv) {
     const int ROW = 10; //represents the x-axis of the board
     const int COL = 10; //represents the y-axis of the board
     enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
-    string name, eName; //player's name && enemy's name
+    //string name, eName; //player's name && enemy's name
     char **player; //player's board
     char **enemy; //enemy's board
     Ship playerS[5]; //structure array of player's ships
@@ -41,21 +43,21 @@ int main(int argc, char** argv) {
     int sub = SUB + 1; //submarine size = 3 spaces
     int ship = SHIP + 1; //battleship size = 4 spaces
     int carrier = CARRIER + 1; //aircraft carrier size = 5 spaces
+    int temp; //temp will store the next ship size because of irregular sized ships
     int xaxis, yaxis; //x/y coordinates of ship placement
     bool coord = false; //checks if ship coordinate chosen is true/false
     char place; //used to store ship's orientation to be passed into function
     
     cout << "===============Welcome to Battleships!===============" << endl;
-    cout << "Enter your SAILOR name!: ";
-    cin >> name;
-    cout << "Now enter the name of the PIRATE you will crush!: ";
-    cin >> eName;
-    cout << name << ", give your crew orders!" << endl;
-    cout << name << "'s turn will now begin." << endl;
+    //cout << "Enter your SAILOR name!: ";
+    //cin >> name;
+    //cout << "Now enter the name of the PIRATE you will crush!: ";
+    //cin >> eName;
+    //cout << name << ", give your crew orders!" << endl;
+    //cout << name << "'s turn will now begin." << endl;
     player = fill(player, ROW, COL); //fills player's board with "water"
     enemy = fill(enemy, ROW, COL); //fills enemy's board with "water"
     //Ship placement starts here!
-    int temp; //temp will store the next ship size because of irregular sized ships
     for(int i=0; i<CARRIER + 1; i++){
         if(i == 0){
             temp = boat;
@@ -94,12 +96,12 @@ int main(int argc, char** argv) {
         playerS[i].yaxis = yaxis; //they are restored into structure again
         setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
     }
-    cout << name << "'s crew is ready and prepared to battle!" << endl;
-    cout << name << "'s turn has ended." << endl;
+    //cout << name << "'s crew is ready and prepared to battle!" << endl;
+    //cout << name << "'s turn has ended." << endl;
     //Enemy's ship placement starts here!
-    cout << "Scumbag " << eName << " has begun giving their orders!" << endl;
-    cout << eName << "'s turn will now begin." << endl;
-    int eShip, pos;
+    //cout << "Scumbag " << eName << " has begun giving their orders!" << endl;
+    //cout << eName << "'s turn will now begin." << endl;
+    int eShip, pos; //eShip holds enemy ship size and pos holds orientation of ship
     for(int i = 0; i < CARRIER + 1; i++){
         if(i == 0){
             eShip = boat;
@@ -130,7 +132,14 @@ int main(int argc, char** argv) {
         }
         spawnE(enemy, enemyS[i].size, enemyS[i].set, enemyS[i].yaxis, enemyS[i].xaxis);
     }
-    cout << eName << " and their crew are ready and prepared for battle!" << endl;
+    //cout << eName << " and their crew are ready and prepared for battle!" << endl;
+    
+    int pWinLose = 0;
+    int eWinLose = 0;
+    pWinLose = winLose(player, ROW, COL, pWinLose);
+    eWinLose = winLose(enemy, ROW, COL, eWinLose);
+    cout << "Player's win/lose condition is if " << pWinLose << " ships sink!" << endl;
+    cout << "Enemy's win/lose condition is if " << eWinLose << " ships sink!" << endl;
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     outputE(enemy, ROW, COL); //for testing purposes
@@ -288,4 +297,15 @@ void spawnE(char **enemy, int eShip, char ePlace, int enemyY, int enemyX){
             }
         }
     }
+}
+
+int winLose(char **array, int ROW, int COL, int count){
+    for(int i=0; i<ROW; i++){
+        for(int j=0; j<COL; j++){
+            if(array[i][j] == '#'){
+                count++;
+            }
+        }
+    }
+    return count;
 }
