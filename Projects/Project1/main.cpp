@@ -7,7 +7,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <cstring>
 using namespace std;
 
 //Global Constants
@@ -32,6 +31,7 @@ int main(int argc, char** argv) {
     const int ROW = 10; //represents the x-axis of the board
     const int COL = 10; //represents the y-axis of the board
     enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
+    string name, eName; //player's name && enemy's name
     char **player; //player's board
     char **enemy; //enemy's board
     Ship playerS[5]; //structure array of player's ships
@@ -46,6 +46,12 @@ int main(int argc, char** argv) {
     char place; //used to store ship's orientation to be passed into function
     
     cout << "===============Welcome to Battleships!===============" << endl;
+    cout << "Enter your SAILOR name!: ";
+    cin >> name;
+    cout << "Now enter the name of the PIRATE you will crush!: ";
+    cin >> eName;
+    cout << name << ", give your crew orders!" << endl;
+    cout << name << "'s turn will now begin." << endl;
     player = fill(player, ROW, COL); //fills player's board with "water"
     enemy = fill(enemy, ROW, COL); //fills enemy's board with "water"
     //Ship placement starts here!
@@ -88,7 +94,11 @@ int main(int argc, char** argv) {
         playerS[i].yaxis = yaxis; //they are restored into structure again
         setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
     }
-    //enemy's ship placement starts here!
+    cout << name << "'s crew is ready and prepared to battle!" << endl;
+    cout << name << "'s turn has ended." << endl;
+    //Enemy's ship placement starts here!
+    cout << "Scumbag " << eName << " has begun giving their orders!" << endl;
+    cout << eName << "'s turn will now begin." << endl;
     int eShip, pos;
     for(int i = 0; i < CARRIER + 1; i++){
         if(i == 0){
@@ -120,7 +130,7 @@ int main(int argc, char** argv) {
         }
         spawnE(enemy, enemyS[i].size, enemyS[i].set, enemyS[i].yaxis, enemyS[i].xaxis);
     }
-    cout << "The enemy's battlefield has been generated!" << endl;
+    cout << eName << " and their crew are ready and prepared for battle!" << endl;
     
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
     outputE(enemy, ROW, COL); //for testing purposes
