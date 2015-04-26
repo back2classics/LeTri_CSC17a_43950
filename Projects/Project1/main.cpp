@@ -30,6 +30,11 @@ int winLose(char **, int, int, int); //condition for winning or losing the game
 int myShots(char **, int, int, int &); //counts how many shots have hit eShips
 void hitEnemy(char **, int, int); //places shots on the enemy's board
 bool eSink(char **, int, int); //checks if player has won
+int enemyShot(char **, int, int, int &); //counts how many shots have hit pShips
+bool yesChase(char **, int, int, bool); //checks if enemy hit player ship
+void hitPlayer(char **, int, int); //places shots on player's board
+int chase(char **, int &, int &, int, int); //enemy AI will chase a ship if hit
+bool pSink(char **, int, int); //checks if enemy has won
 
 //Execution begins here!
 int main(int argc, char** argv) {
@@ -158,6 +163,29 @@ int main(int argc, char** argv) {
         check = eSink(enemy, myHit, pWinLose);
         if(check == true){
             cout << "You successfully sank all of the enemy ships!" << endl;
+        }
+        else{
+            cout << "Initiating next phase..." << endl;
+        }
+    }
+    int enemyHit = 0;
+    int follow;
+    bool yesHit = false;
+    bool eCheck = false;
+    for(int i=0; i<5; i++){
+        if(yesHit == false){
+            eShots[i].shootY = rand() % 10;
+            eShots[i].shootX = rand() % 10;
+        }
+        if(yesHit == true){
+            chase(player, eShots[i].shootY, eShots[i].shootX, enemyHit, follow);
+        }
+        enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
+        hitPlayer(player, eShots[i].shootY, eShots[i].shootX);
+        yesHit = yesChase(player, eShots[i].shootY, eShots[i].shootX, yesHit);
+        eCheck = pSink(player, enemyHit, eWinLose);
+        if(eCheck == true){
+            cout << "Enemy has successfully sank all of your ships!" << endl;
         }
         else{
             cout << "Initiating next phase..." << endl;
@@ -361,47 +389,50 @@ bool eSink(char **enemy, int myHit, int pWinLose){
     }
 }
 
-//int enemyShot(char **player, int eShotY, int eShotX, int &enemyHit, int &yesHit){
-//    if(player[eShotY][eShotX] == '#'){
-//        cout << "Enemy shot hit one of your ships!" << endl;
-//        enemyHit++;
-//        yesHit++;
-//    }
-//    else{
-//        cout << "Enemy shot missed!" << endl;
-//    }
-//    return enemyHit;
-//    return yesHit;
-//}
+int enemyShot(char **player, int eShotY, int eShotX, int &enemyHit){
+    if(player[eShotY][eShotX] == '#'){
+        cout << "Enemy shot hit one of your ships!" << endl;
+        enemyHit++;
+    }
+    else{
+        cout << "Enemy shot missed!" << endl;
+    }
+    return enemyHit;
+}
 
-//void hitPlayer(char **player, int eShotY, int eShotX){
-//    if(player[eShotY][eShotX] == '#'){
-//        player[eShotY][eShotX] = 'X';
-//    }
-//}
+bool yesChase(char **player, int eShotY, int eShotX, bool yesHit){
+    if(player[eShotY][eShotX] == 'X'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
-//int chase(char **player, int &eShotY, int &eShotX, int enemyHit, int shootWhere){
-//    if(enemyHit <= 15){
-//        shootWhere = rand() % 2;
-//        if(shootWhere == 0){
-//            eShotY = eShotY + 1;
-//        }
-//        else{
-//            eShotX = eShotX + 1;
-//        }
-//    }
-//    return eShotY;
-//    return eShotX;
-//}
+void hitPlayer(char **player, int eShotY, int eShotX){
+    if(player[eShotY][eShotX] == '#'){
+        player[eShotY][eShotX] = 'X';
+    }
+}
 
-//bool pSink(char **player, int enemyHit)
-//{
-//    if(enemyHit == 15)
-//    {
-//        return true;
-//    }
-//    else
-//    {
-//        return false;
-//    }
-//}
+int chase(char **player, int &eShotY, int &eShotX, int enemyHit, int follow){
+    follow = rand() % 2;
+    if(follow == 0){
+        eShotY = eShotY + 1;
+    }
+    else{
+        eShotX = eShotX + 1;
+    }
+    return eShotY;
+    return eShotX;
+}
+
+bool pSink(char **player, int enemyHit, int eWinLose){
+    if(enemyHit == eWinLose){
+        cout << "All player ships are down! You lose!" << endl;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
