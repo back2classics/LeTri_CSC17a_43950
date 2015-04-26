@@ -44,9 +44,7 @@ int main(int argc, char** argv) {
     int ship = SHIP + 1; //battleship size = 4 spaces
     int carrier = CARRIER + 1; //aircraft carrier size = 5 spaces
     int temp; //temp will store the next ship size because of irregular sized ships
-    int xaxis, yaxis; //x/y coordinates of ship placement
     bool coord = false; //checks if ship coordinate chosen is true/false
-    char place; //used to store ship's orientation to be passed into function
     
     cout << "===============Welcome to Battleships!===============" << endl;
     //cout << "Enter your SAILOR name!: ";
@@ -76,12 +74,8 @@ int main(int argc, char** argv) {
         }
         playerS[i].size = temp; //player's first ship size is stored in structure
         cout << "The ship that is going to be placed is of size " << temp << "." << endl;
-        playerS[i].yaxis = setPosY(yaxis, coord); //player's ship axis is stored
-        yaxis = playerS[i].yaxis;
-        cout << endl;
-        playerS[i].xaxis = setPosX(xaxis, coord); //player's ship axis is stored
-        xaxis = playerS[i].xaxis;
-        cout << endl;
+        playerS[i].yaxis = setPosY(playerS[i].yaxis, coord); //player's ship axis is stored
+        playerS[i].xaxis = setPosX(playerS[i].xaxis, coord); //player's ship axis is stored
         cout << "Enter the desired orientation of the ship, where [v] is vertical"
                 " and [h] is horizontal: ";
         while(playerS[i].set != 'v' && playerS[i].set != 'h'){
@@ -90,11 +84,11 @@ int main(int argc, char** argv) {
                 cout << "Invalid input. Please enter again: ";
             }
         }
-        place = playerS[i].set;
-        checkPos(temp, place, yaxis, xaxis); //checks for valid ship coordinates
-        playerS[i].xaxis = xaxis; //if changes were made to coordinates
-        playerS[i].yaxis = yaxis; //they are restored into structure again
-        setShip(player, temp, place, yaxis, xaxis); //places the ships on the board
+        cout << endl;
+        checkPos(playerS[i].size, playerS[i].set, playerS[i].yaxis,
+                playerS[i].xaxis); //checks for valid ship coordinates
+        setShip(player, playerS[i].size, playerS[i].set, playerS[i].yaxis,
+                playerS[i].xaxis); //places the ships on the board
     }
     //cout << name << "'s crew is ready and prepared to battle!" << endl;
     //cout << name << "'s turn has ended." << endl;
