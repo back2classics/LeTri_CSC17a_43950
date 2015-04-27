@@ -62,6 +62,7 @@ int main(int argc, char** argv) {
     bool yesHit = false; //detects if enemy hit a player ship to then follow and chase
     bool eCheck = false; //checks if enemy win/lose condition was met
     bool win = false; //checks if there was a win on either side
+    int pWon = 0; //used to stop the enemy from shooting after player has won
     
     cout << "===============Welcome to Battleships!===============" << endl;
     cout << "Enter your SAILOR name: ";
@@ -166,19 +167,22 @@ int main(int argc, char** argv) {
         if(check == true){
             cout << name << " has successfully sank all of the enemy ships!" << endl;
             win = true;
-            
+            pWon = 1;
         }
         else{
             cout << "Initiating next phase..." << endl;
         }
     }
-    
-    
+    if(win == true){
+        cout << "Game Over!" << endl;
+    }
+    else{
         cout << name << " has landed " << myHit << " out of " << pWinLose << 
              " shots!" << endl;
         cout << "It is now " << eName << "'s turn!" << endl;
         cout << eName << " is getting ready to call the shots!" << endl;
-    
+    }
+    if(pWon == 0){
     for(int i=0; i<5; i++){
         if(yesHit == false){
             eShots[i].shootY = rand() % 10;
@@ -194,20 +198,20 @@ int main(int argc, char** argv) {
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
             win = true;
-            
         }
         else{
             cout << "Initiating next phase..." << endl;
         }
     }
-    
-    
-        cout << eName << " has landed " << enemyHit << " out of " << eWinLose << 
-             " shots!" << endl;
-        cout << eName << "'s turn has ended!" << endl;
-    
+    }
+    else{
+        cout << "Now displaying the results screen..." << endl;
+    }
+//    cout << eName << " has landed " << enemyHit << " out of " << eWinLose << 
+//         " shots!" << endl;
+//    cout << eName << "'s turn has ended!" << endl;
     }while(!win);
-    
+    cout << "The game is now over, here are the results!" << endl;
     outputE(enemy, ROW, COL); //for testing purposes
     cout << endl;
     outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
