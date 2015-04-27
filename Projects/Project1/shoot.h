@@ -1,8 +1,8 @@
 /* 
- * File: shoot.h
- * Author: Tri Le
- * Project 1 - CSC17a - Battleships
- * Created on April 26, 2015, 11:33 AM
+ * File:   shoot.h
+ * Author: rcc
+ *
+ * Created on April 27, 2015, 10:17 AM
  */
 
 #ifndef SHOOT_H

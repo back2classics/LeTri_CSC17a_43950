@@ -1,8 +1,8 @@
 /* 
- * File: ship.h
- * Author: Tri Le
- * Project 1 - CSC17a - Battleships
- * Created on April 22, 2015, 5:23 PM
+ * File:   ship.h
+ * Author: rcc
+ *
+ * Created on April 27, 2015, 10:15 AM
  */
 
 #ifndef SHIP_H
