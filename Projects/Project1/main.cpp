@@ -36,13 +36,14 @@ void hitPlayer(char **, int, int); //places shots on player's board
 int chase(char **, int, int, int, int); //enemy AI will chase a ship if hit
 bool pSink(char **, int, int); //checks if enemy has won
 
+enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
+
 //Execution begins here!
 int main(int argc, char** argv) {
 
     srand(time(0)); //used for randomly spawning enemy's board
     const int ROW = 10; //represents the x-axis of the board
     const int COL = 10; //represents the y-axis of the board
-    enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
     string name, eName; //player's name && enemy's name
     char **player; //player's board
     char **enemy; //enemy's board
