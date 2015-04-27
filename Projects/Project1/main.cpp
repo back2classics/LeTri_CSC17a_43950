@@ -20,8 +20,8 @@ using namespace std;
 char **fill(char **, int, int); //fills the board with "water"
 void outputP(char **, int, int); //shows the player's side w/ or w/o ships and damages done
 void outputE(char **, int, int); //shows the enemy's side AFTER game ends
-int setPosX(int, bool); //used to set the X coordinate of ship placement
-int setPosY(int, bool); //used to set the Y coordinate of ship placement
+int setPosX(int); //used to set the X coordinate of ship placement
+int setPosY(int); //used to set the Y coordinate of ship placement
 int checkPos(int, char, int &, int &); //checks if ship will go off the board
 void setShip(char **, int, char, int, int); //places ships on the board
 int checkE(int, char, int &, int &); //spawns enemy's battlefield
@@ -50,7 +50,6 @@ int main(int argc, char** argv) {
     Ship playerS[5]; //structure array of player's ships
     Ship enemyS[5]; //structure array of enemy's ships
     int temp; //temp will store the next ship size because of irregular sized ships
-    bool coord = false; //checks if ship coordinate chosen is true/false
     int eShip, pos; //eShip holds enemy ship size and pos holds orientation of ship
     int pWinLose = 0; //player's win/lose condition
     int eWinLose = 0; //enemy's win/lose condition
@@ -93,8 +92,8 @@ int main(int argc, char** argv) {
         }
         playerS[i].size = temp; //player's first ship size is stored in structure
         cout << "The ship that is going to be placed is of size " << temp << "." << endl;
-        playerS[i].yaxis = setPosY(playerS[i].yaxis, coord); //player's ship axis is stored
-        playerS[i].xaxis = setPosX(playerS[i].xaxis, coord); //player's ship axis is stored
+        playerS[i].yaxis = setPosY(playerS[i].yaxis); //player's ship axis is stored
+        playerS[i].xaxis = setPosX(playerS[i].xaxis); //player's ship axis is stored
         cout << "Enter the desired orientation of the ship, where [v] is vertical"
                 " and [h] is horizontal: ";
         while(playerS[i].set != 'v' && playerS[i].set != 'h'){
@@ -160,8 +159,8 @@ int main(int argc, char** argv) {
     cout << name << ", you can fire at the enemy 5 times!" << endl;
     cout << "Choose your shot coordinates now!" << endl;
     for(int i=0; i<5; i++){
-        pShots[i].shootY = setPosY(pShots[i].shootY, coord);
-        pShots[i].shootX = setPosX(pShots[i].shootX, coord);
+        pShots[i].shootY = setPosY(pShots[i].shootY);
+        pShots[i].shootX = setPosX(pShots[i].shootX);
         myHit = myShots(enemy, pShots[i].shootY, pShots[i].shootX, myHit);
         hitEnemy(enemy, pShots[i].shootY, pShots[i].shootX);
         check = eSink(enemy, myHit, pWinLose);
@@ -265,35 +264,29 @@ void outputE(char **enemy, int ROW, int COL){ //shows the enemy's side AFTER gam
     }
 }
 
-int setPosX(int xaxis, bool coord){ //sets and validates the x-coordinate of ship
+int setPosX(int xaxis){ //sets and validates the x-coordinate of ship
     cout << "Enter the coordinates of the X-axis from 0-9, if invalid you will"
             " be asked to enter again: ";
-    while(coord == false){
-        cin >> xaxis;
-        if(xaxis <= 9){
-            coord = true;
-        }
-        else{
+    do{
+        while(!(cin >> xaxis)){
             cout << "Invalid input for X coordinate. Please enter again: ";
-            coord = false;
+            cin.clear();
+            cin.ignore();
         }
-    }
+    }while(!(xaxis >= 0 && xaxis <= 9));
     return xaxis;
 }
 
-int setPosY(int yaxis, bool coord){ //sets and validates the y-coordinate of ship
+int setPosY(int yaxis){ //sets and validates the y-coordinate of ship
     cout << "Enter the coordinates of the Y-axis from 0-9, if invalid you will"
             " be asked to enter again: ";
-    while(coord == false){
-        cin >> yaxis;
-        if(yaxis <= 9){
-            coord = true;
-        }
-        else{
+    do{
+        while(!(cin >> yaxis)){
             cout << "Invalid input for Y coordinate. Please enter again: ";
-            coord = false;
+            cin.clear();
+            cin.ignore();
         }
-    }
+    }while(!(yaxis >= 0 && yaxis <= 9));
     return yaxis;
 }
 //checks validity of coordinates and orientation of the ships
