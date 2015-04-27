@@ -166,15 +166,19 @@ int main(int argc, char** argv) {
         if(check == true){
             cout << name << " has successfully sank all of the enemy ships!" << endl;
             win = true;
+            
         }
         else{
             cout << "Initiating next phase..." << endl;
         }
     }
-    cout << name << " has landed " << myHit << " out of " << pWinLose << 
-           " shots!" << endl;
-    cout << "It is now " << eName << "'s turn!" << endl;
-    cout << eName << " is getting ready to call the shots!" << endl;
+    
+    
+        cout << name << " has landed " << myHit << " out of " << pWinLose << 
+             " shots!" << endl;
+        cout << "It is now " << eName << "'s turn!" << endl;
+        cout << eName << " is getting ready to call the shots!" << endl;
+    
     for(int i=0; i<5; i++){
         if(yesHit == false){
             eShots[i].shootY = rand() % 10;
@@ -190,14 +194,18 @@ int main(int argc, char** argv) {
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
             win = true;
+            
         }
         else{
             cout << "Initiating next phase..." << endl;
         }
     }
-    cout << eName << " has landed " << enemyHit << " out of " << eWinLose << 
-           " shots!" << endl;
-    cout << eName << "'s turn has ended!" << endl;
+    
+    
+        cout << eName << " has landed " << enemyHit << " out of " << eWinLose << 
+             " shots!" << endl;
+        cout << eName << "'s turn has ended!" << endl;
+    
     }while(!win);
     
     outputE(enemy, ROW, COL); //for testing purposes
