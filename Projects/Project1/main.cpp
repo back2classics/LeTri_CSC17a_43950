@@ -156,8 +156,7 @@ int main(int argc, char** argv) {
     int follow;
     bool yesHit = false;
     bool eCheck = false;
-    bool pWin = false;
-    bool eWin = false;
+    bool win = false;
     outputE(enemy, ROW, COL); //for testing purposes
     do{
     cout << name << ", it is your turn!" << endl;
@@ -171,7 +170,7 @@ int main(int argc, char** argv) {
         check = eSink(enemy, myHit, pWinLose);
         if(check == true){
             cout << name << " has successfully sank all of the enemy ships!" << endl;
-            pWin = true;
+            win = true;
         }
         else{
             cout << "Initiating next phase..." << endl;
@@ -195,14 +194,14 @@ int main(int argc, char** argv) {
         eCheck = pSink(player, enemyHit, eWinLose);
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
-            eWin = true;
+            win = true;
         }
         else{
             cout << "Initiating next phase..." << endl;
         }
     }
     cout << eName << "'s turn has ended!" << endl;
-    }while(pWin == false || eWin == false);
+    }while(!win);
     
     outputE(enemy, ROW, COL); //for testing purposes
     cout << endl;
