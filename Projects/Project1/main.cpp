@@ -193,10 +193,20 @@ int main(int argc, char** argv) {
         else{
             follow = rand() % 2;
             if(follow == 0){
-                eShots[i].shootY = eShots[i].shootY + 1;
+                if(eShots[i].shootY <= 8){
+                    eShots[i].shootY = eShots[i].shootY + 1; //fires around the area of last ship
+                }
+                else{
+                    eShots[i].shootY = eShots[i].shootY - 1; //makes sure shootY doesn't go off the board
+                }
             }
             else{
-                eShots[i].shootX = eShots[i].shootX + 1;
+                if(eShots[i].shootX <= 8){
+                    eShots[i].shootX = eShots[i].shootX + 1; //fires around the area of last ship
+                }
+                else{
+                    eShots[i].shootX = eShots[i].shootX - 1; //makes sure shootX doesn't go off the board
+                }
             }
         }
         enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
