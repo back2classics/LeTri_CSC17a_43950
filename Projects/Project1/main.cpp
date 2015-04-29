@@ -24,17 +24,16 @@ int setPosX(int); //used to set the X coordinate of ship placement
 int setPosY(int); //used to set the Y coordinate of ship placement
 int checkPos(int, char, int &, int &); //checks if ship will go off the board
 void setShip(char **, int, char, int, int); //places ships on the board
-int checkE(int, char, int &, int &); //spawns enemy's battlefield
-void spawnE(char **, int, char, int, int);
+int checkE(int, char, int &, int &); //checks for valid placement of enemy's battlefield
+void spawnE(char **, int, char, int, int); //spawns enemy's battlefield
 int winLose(char **, int, int, int); //condition for winning or losing the game
 int myShots(char **, int, int, int &); //counts how many shots have hit eShips
 void hitEnemy(char **, int, int); //places shots on the enemy's board
-bool eSink(char **, int, int); //checks if player has won
+bool eSink(int, int); //checks if player has won
 int enemyShot(char **, int, int, int &); //counts how many shots have hit pShips
 bool yesChase(char **, int, int); //checks if enemy hit player ship
 void hitPlayer(char **, int, int); //places shots on player's board
-int chase(char **, int, int, int, int); //enemy AI will chase a ship if hit
-bool pSink(char **, int, int); //checks if enemy has won
+bool pSink(int, int); //checks if enemy has won
 
 enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //used for each unique ship's size
 
@@ -73,6 +72,8 @@ int main(int argc, char** argv) {
     cout << name << "'s turn will now begin." << endl;
     player = fill(player, ROW, COL); //fills player's board with "water"
     enemy = fill(enemy, ROW, COL); //fills enemy's board with "water"
+    cout << "This is how " << name << "'s board looks!" << endl;
+    outputP(player, ROW, COL); //shows the player's board BEFORE ships have been placed
     //Ship placement starts here!
     for(int i=0; i<CARRIER + 1; i++){
         if(i == 0){
@@ -107,6 +108,7 @@ int main(int argc, char** argv) {
                 playerS[i].xaxis); //checks for valid ship coordinates
         setShip(player, playerS[i].size, playerS[i].set, playerS[i].yaxis,
                 playerS[i].xaxis); //places the ships on the board
+        outputP(player, ROW, COL);
     }
     cout << name << "'s crew is ready and prepared for battle!" << endl;
     cout << name << "'s turn has ended." << endl;
@@ -163,7 +165,7 @@ int main(int argc, char** argv) {
         pShots[i].shootX = setPosX(pShots[i].shootX);
         myHit = myShots(enemy, pShots[i].shootY, pShots[i].shootX, myHit);
         hitEnemy(enemy, pShots[i].shootY, pShots[i].shootX);
-        check = eSink(enemy, myHit, pWinLose);
+        check = eSink(myHit, eWinLose);
         if(check == true){
             cout << name << " has successfully sank all of the enemy ships!" << endl;
             win = true;
@@ -177,7 +179,7 @@ int main(int argc, char** argv) {
         cout << "Game Over!" << endl;
     }
     else{
-        cout << name << " has landed " << myHit << " out of " << pWinLose << 
+        cout << name << " has landed " << myHit << " out of " << eWinLose << 
              " shots!" << endl;
         cout << "It is now " << eName << "'s turn!" << endl;
         cout << eName << " is getting ready to call the shots!" << endl;
@@ -189,12 +191,18 @@ int main(int argc, char** argv) {
             eShots[i].shootX = rand() % 10;
         }
         else{
-            chase(player, eShots[i].shootY, eShots[i].shootX, enemyHit, follow);
+            follow = rand() % 2;
+            if(follow == 0){
+                eShots[i].shootY = eShots[i].shootY + 1;
+            }
+            else{
+                eShots[i].shootX = eShots[i].shootX + 1;
+            }
         }
         enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
         hitPlayer(player, eShots[i].shootY, eShots[i].shootX);
         yesHit = yesChase(player, eShots[i].shootY, eShots[i].shootX);
-        eCheck = pSink(player, enemyHit, eWinLose);
+        eCheck = pSink(enemyHit, pWinLose);
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
             win = true;
@@ -203,18 +211,21 @@ int main(int argc, char** argv) {
             cout << "Initiating next phase..." << endl;
         }
     }
+    cout << eName << " has landed " << enemyHit << " out of " << pWinLose << 
+         " shots!" << endl;
+    cout << eName << "'s turn has ended!" << endl;
+    cout << "Here is your board after " << eName << " has fired at your ships!" << endl;
+    outputP(player, ROW, COL);
     }
     else{
         cout << "Now displaying the results screen..." << endl;
     }
-//    cout << eName << " has landed " << enemyHit << " out of " << eWinLose << 
-//         " shots!" << endl;
-//    cout << eName << "'s turn has ended!" << endl;
     }while(!win);
     cout << "The game is now over, here are the results!" << endl;
-    outputE(enemy, ROW, COL); //for testing purposes
-    cout << endl;
-    outputP(player, ROW, COL); //shows the player's board AFTER ships have been placed
+    cout << "Here is " << eName << "'s board!" << endl;
+    outputE(enemy, ROW, COL); //shows the enemy's board after the game has ended
+    cout << "Here is your board!" << endl;
+    outputP(player, ROW, COL); //shows the player's board after the game has ended
     
     for(int i=0; i<ROW; i++){ //deallocating the player's board
         delete [] player[i]; //internal memory deallocated first
@@ -392,10 +403,13 @@ void hitEnemy(char **enemy, int shootY, int shootX){
     if(enemy[shootY][shootX] == '#'){
         enemy[shootY][shootX] = 'X';
     }
+    else{
+        enemy[shootY][shootX] = enemy[shootY][shootX]; //do nothing
+    }
 }
 
-bool eSink(char **enemy, int myHit, int pWinLose){
-    if(myHit == pWinLose){
+bool eSink(int myHit, int eWinLose){
+    if(myHit == eWinLose){
         cout << "All enemy ships are down! You win!" << endl;
         return true;
     }
@@ -428,22 +442,13 @@ void hitPlayer(char **player, int eShotY, int eShotX){
     if(player[eShotY][eShotX] == '#'){
         player[eShotY][eShotX] = 'X';
     }
-}
-
-int chase(char **player, int eShotY, int eShotX, int enemyHit, int follow){
-    follow = rand() % 2;
-    if(follow == 0){
-        eShotY = eShotY + 1;
-        return eShotY;
-    }
     else{
-        eShotX = eShotX + 1;
-        return eShotX;
+        player[eShotY][eShotX] = player[eShotY][eShotX]; //do nothing
     }
 }
 
-bool pSink(char **player, int enemyHit, int eWinLose){
-    if(enemyHit == eWinLose){
+bool pSink(int enemyHit, int pWinLose){
+    if(enemyHit == pWinLose){
         cout << "All player ships are down! You lose!" << endl;
         return true;
     }
