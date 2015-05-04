@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
+#include <fstream>
 using namespace std;
 
 //Global Constants
@@ -31,7 +32,7 @@ int myShots(char **, int, int, int &); //counts how many shots have hit eShips
 void hitEnemy(char **, int, int); //places shots on the enemy's board
 bool eSink(int, int); //checks if player has won
 int enemyShot(char **, int, int, int &); //counts how many shots have hit pShips
-bool yesChase(char **, int, int); //checks if enemy hit player ship
+bool yesWrite(char **, int, int); //checks if enemy hit player ship
 void hitPlayer(char **, int, int); //places shots on player's board
 bool pSink(int, int); //checks if enemy has won
 
@@ -46,6 +47,7 @@ int main(int argc, char** argv) {
     string name, eName; //player's name && enemy's name
     char **player; //player's board
     char **enemy; //enemy's board
+    fstream datFile;
     Ship playerS[5]; //structure array of player's ships
     Ship enemyS[5]; //structure array of enemy's ships
     int temp; //temp will store the next ship size because of irregular sized ships
@@ -57,12 +59,10 @@ int main(int argc, char** argv) {
     int myHit = 0; //player hits on enemy ships
     bool check = false; //checks if player win/lose condition was met
     int enemyHit = 0; //enemy's hit on player ships
-    int follow; //assigned a 0 or 1 value to determine if enemy will chase player ships
-    bool yesHit = false; //detects if enemy hit a player ship to then follow and chase
+    bool yesHit = false; //detects if enemy hit a player ship to then signal to write to file
     bool eCheck = false; //checks if enemy win/lose condition was met
     bool win = false; //checks if there was a win on either side
     int pWon = 0; //used to stop the enemy from shooting after player has won
-    
     cout << "===============Welcome to Battleships!===============" << endl;
     cout << "Enter your SAILOR name: ";
     cin >> name;
@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
     cout << name << "'s crew is ready and prepared for battle!" << endl;
     cout << name << "'s turn has ended." << endl;
     //Enemy's ship placement starts here!
-    cout << "Scumbag " << eName << " has begun giving his/her orders!" << endl;
+    cout << "Scallywag " << eName << " has begun giving his/her orders!" << endl;
     cout << eName << "'s turn will now begin." << endl;
     for(int i=0; i<CARRIER + 1; i++){
         cout << "Generating enemy battlefield..." << endl;
@@ -155,7 +155,11 @@ int main(int argc, char** argv) {
     cout << eName << "'s win/lose condition is if " << eWinLose << " ships sink!" << endl;
     cout << endl;
     //Player's turn to fire at enemy begins here!
-    outputE(enemy, ROW, COL); //for testing purposes
+    //outputE(enemy, ROW, COL); //for testing purposes
+    
+    Shoot dataShots[17]; //structure array of binary file bits
+    datFile.open("data.txt", ios::out | ios::binary); //write to binary file
+    
     do{
     cout << name << ", it is your turn!" << endl;
     cout << name << ", you can fire at the enemy 5 times!" << endl;
@@ -186,32 +190,14 @@ int main(int argc, char** argv) {
     }
     if(pWon == 0){
     for(int i=0; i<5; i++){
-        if(yesHit == false){
-            eShots[i].shootY = rand() % 10;
-            eShots[i].shootX = rand() % 10;
-        }
-        else{
-            follow = rand() % 2;
-            if(follow == 0){
-                if(eShots[i].shootY <= 8){
-                    eShots[i].shootY = eShots[i].shootY + 1; //fires around the area of last ship
-                }
-                else{
-                    eShots[i].shootY = eShots[i].shootY - 1; //makes sure shootY doesn't go off the board
-                }
-            }
-            else{
-                if(eShots[i].shootX <= 8){
-                    eShots[i].shootX = eShots[i].shootX + 1; //fires around the area of last ship
-                }
-                else{
-                    eShots[i].shootX = eShots[i].shootX - 1; //makes sure shootX doesn't go off the board
-                }
-            }
-        }
+        eShots[i].shootY = rand() % 10;
+        eShots[i].shootX = rand() % 10;
         enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
         hitPlayer(player, eShots[i].shootY, eShots[i].shootX);
-        yesHit = yesChase(player, eShots[i].shootY, eShots[i].shootX);
+        yesHit = yesWrite(player, eShots[i].shootY, eShots[i].shootX);
+        if(yesHit == true){
+            datFile.write(reinterpret_cast<char *>(&eShots), sizeof(eShots));
+        }
         eCheck = pSink(enemyHit, pWinLose);
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
@@ -231,7 +217,25 @@ int main(int argc, char** argv) {
         cout << "Now displaying the results screen..." << endl;
     }
     }while(!win);
+    datFile.close();
+    
+    datFile.open("data.txt", ios::in | ios::binary); //read in binary to struct
+    
+    for(int i=0;i<enemyHit;i++){
+        datFile.read(reinterpret_cast<char *>(&dataShots), sizeof(dataShots));
+    }
+    datFile.close();
+    
     cout << "The game is now over, here are the results!" << endl;
+    cout << "These are all of the shots where " << eName << " actually landed a hit!" << endl;
+    for(int i=0;i<enemyHit;i++){
+        cout << '(';
+        cout << dataShots[i].shootY;
+        cout << ',';
+        cout << dataShots[i].shootX;
+        cout << ')' << " ";
+    }
+    cout << endl;
     cout << "Here is " << eName << "'s board!" << endl;
     outputE(enemy, ROW, COL); //shows the enemy's board after the game has ended
     cout << "Here is your board!" << endl;
@@ -318,10 +322,17 @@ int checkPos(int size, char place, int &yaxis, int &xaxis){
                 while((xaxis + i) > 9){
                     cout << "The X coordinate you chose will make the ship go off"
                             " of the game board, please enter a new valid X coordinate: ";
-                    cin >> xaxis;
+                    do{
+                        while(!(cin >> xaxis)){
+                        cout << "Invalid input for X coordinate. Please enter again: ";
+                        cin.clear();
+                        cin.ignore();
+                        }
+                    }while(!(xaxis >= 0 && xaxis <= 9));
                 }
             }
         }
+        return xaxis;
     }
     else{
         for(int i=0; i<size; i++){
@@ -329,13 +340,18 @@ int checkPos(int size, char place, int &yaxis, int &xaxis){
                 while((yaxis + i) > 9){
                     cout << "The Y coordinate you chose will make the ship go off"
                             " of the game board, please enter a new valid Y coordinate: ";
-                    cin >> yaxis;
+                    do{
+                        while(!(cin >> yaxis)){
+                             cout << "Invalid input for Y coordinate. Please enter again: ";
+                             cin.clear();
+                             cin.ignore();
+                        }
+                    }while(!(yaxis >= 0 && yaxis <= 9));
                 }
             }
         }
+        return yaxis;
     }
-    return xaxis;
-    return yaxis;
 }
 //places the ships on the board according to the orientation selected
 void setShip(char **player, int size, char place, int yaxis, int xaxis){
@@ -360,6 +376,7 @@ int checkE(int eShip, char ePlace, int &enemyY, int &enemyX){
                 }
             }
         }
+        return enemyX;
     }
     else{
         for(int i = 0; i < eShip; i++){
@@ -369,9 +386,8 @@ int checkE(int eShip, char ePlace, int &enemyY, int &enemyX){
                 }
             }
         }
+        return enemyY;
     }
-    return enemyY;
-    return enemyX;
 }
 
 void spawnE(char **enemy, int eShip, char ePlace, int enemyY, int enemyX){
@@ -413,9 +429,6 @@ void hitEnemy(char **enemy, int shootY, int shootX){
     if(enemy[shootY][shootX] == '#'){
         enemy[shootY][shootX] = 'X';
     }
-    else{
-        enemy[shootY][shootX] = enemy[shootY][shootX]; //do nothing
-    }
 }
 
 bool eSink(int myHit, int eWinLose){
@@ -439,7 +452,7 @@ int enemyShot(char **player, int eShotY, int eShotX, int &enemyHit){
     return enemyHit;
 }
 
-bool yesChase(char **player, int eShotY, int eShotX){
+bool yesWrite(char **player, int eShotY, int eShotX){
     if(player[eShotY][eShotX] == 'X'){
         return true;
     }
@@ -451,9 +464,6 @@ bool yesChase(char **player, int eShotY, int eShotX){
 void hitPlayer(char **player, int eShotY, int eShotX){
     if(player[eShotY][eShotX] == '#'){
         player[eShotY][eShotX] = 'X';
-    }
-    else{
-        player[eShotY][eShotX] = player[eShotY][eShotX]; //do nothing
     }
 }
 
