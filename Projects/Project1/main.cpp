@@ -48,8 +48,11 @@ int main(int argc, char** argv) {
     char **player; //player's board
     char **enemy; //enemy's board
     fstream datFile;
+<<<<<<< HEAD
     Shoot dataShots[25]; //structure array of binary file bits
     int count = 0; //used to stop file IO after a certain number has been read
+=======
+>>>>>>> eb5fa51d172a8e4e122858053bd7af16d9ea75ab
     Ship playerS[5]; //structure array of player's ships
     Ship enemyS[5]; //structure array of enemy's ships
     int temp; //temp will store the next ship size because of irregular sized ships
@@ -159,6 +162,10 @@ int main(int argc, char** argv) {
     //Player's turn to fire at enemy begins here!
     //outputE(enemy, ROW, COL); //for testing purposes
     
+<<<<<<< HEAD
+=======
+    Shoot dataShots[17]; //structure array of binary file bits
+>>>>>>> eb5fa51d172a8e4e122858053bd7af16d9ea75ab
     datFile.open("data.txt", ios::out | ios::binary); //write to binary file
     
     do{
@@ -196,10 +203,16 @@ int main(int argc, char** argv) {
         enemyHit = enemyShot(player, eShots[i].shootY, eShots[i].shootX, enemyHit);
         hitPlayer(player, eShots[i].shootY, eShots[i].shootX);
         yesHit = yesWrite(player, eShots[i].shootY, eShots[i].shootX);
+<<<<<<< HEAD
         if(count != 25){
             datFile.write(reinterpret_cast<char *>(&eShots), sizeof(eShots));
         }
         count++;
+=======
+        if(yesHit == true){
+            datFile.write(reinterpret_cast<char *>(&eShots), sizeof(eShots));
+        }
+>>>>>>> eb5fa51d172a8e4e122858053bd7af16d9ea75ab
         eCheck = pSink(enemyHit, pWinLose);
         if(eCheck == true){
             cout << eName << " has successfully sank all of your ships!" << endl;
@@ -223,14 +236,23 @@ int main(int argc, char** argv) {
     
     datFile.open("data.txt", ios::in | ios::binary); //read in binary to struct
     
+<<<<<<< HEAD
     for(int i=0;i<25;i++){
+=======
+    for(int i=0;i<enemyHit;i++){
+>>>>>>> eb5fa51d172a8e4e122858053bd7af16d9ea75ab
         datFile.read(reinterpret_cast<char *>(&dataShots), sizeof(dataShots));
     }
     datFile.close();
     
     cout << "The game is now over, here are the results!" << endl;
+<<<<<<< HEAD
     cout << "These are 25 of " << eName << "'s shots that he/she fired at you!" << endl;
     for(int i=0;i<25;i++){
+=======
+    cout << "These are all of the shots where " << eName << " actually landed a hit!" << endl;
+    for(int i=0;i<enemyHit;i++){
+>>>>>>> eb5fa51d172a8e4e122858053bd7af16d9ea75ab
         cout << '(';
         cout << dataShots[i].shootY;
         cout << ',';
