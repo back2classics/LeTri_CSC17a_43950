@@ -308,16 +308,17 @@ void problem6(){
 
 void problem7(){
     cout<<"In problem # 7"<<endl<<endl;
-    
     int num;
     cout << "Enter any number from 1-365: ";
     do{
         cin >> num;
     }while(!(num >= 1 && num <= 365));
+    cout << "You entered: " << num << endl;
     DayOfYear months(num);
-    
-    months.print(num);
-    
+    months.print();
+    cout << "++ has been implemented: " << endl;
+    months++;
+    months.print();
     
     cout << endl;
 }

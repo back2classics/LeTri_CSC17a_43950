@@ -16,7 +16,12 @@ private:
     static string month[12];
 public:
     DayOfYear(int);
-    void print(int);
+    void print();
+    int getDay(int);
+    DayOfYear operator++();
+    DayOfYear operator++(int);
+    DayOfYear operator--();
+    DayOfYear operator--(int);
 
 };
 
