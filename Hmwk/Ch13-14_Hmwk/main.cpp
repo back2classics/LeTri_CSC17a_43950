@@ -17,6 +17,7 @@ using namespace std;
 #include "Date.h"
 #include "DayOfYear.h"
 #include "Employee.h"
+#include "NumDays.h"
 #include "Numbers.h"
 #include "Retail.h"
 
@@ -330,6 +331,16 @@ void problem8(){
 
 void problem9(){
     cout<<"In problem # 9"<<endl<<endl;
+    
+    int hours;
+    
+    cout << "Enter the amount of hours worked: ";
+    cin >> hours;
+    NumDays week;
+    week.setHour(hours);
+    week.calc(hours);
+    cout << week.getHour() << " hours is equal to " << week.getDay() << 
+            " working days" << endl;
     cout << endl;
 }
 

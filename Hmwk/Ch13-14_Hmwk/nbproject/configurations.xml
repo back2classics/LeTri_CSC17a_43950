@@ -9,6 +9,7 @@
       <itemPath>Date.h</itemPath>
       <itemPath>DayOfYear.h</itemPath>
       <itemPath>Employee.h</itemPath>
+      <itemPath>NumDays.h</itemPath>
       <itemPath>Numbers.h</itemPath>
       <itemPath>Retail.h</itemPath>
     </logicalFolder>
@@ -24,6 +25,7 @@
       <itemPath>Date.cpp</itemPath>
       <itemPath>DayOfYear.cpp</itemPath>
       <itemPath>Employee.cpp</itemPath>
+      <itemPath>NumDays.cpp</itemPath>
       <itemPath>Numbers.cpp</itemPath>
       <itemPath>Retail.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
@@ -69,6 +71,10 @@
       <item path="Employee.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Employee.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NumDays.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NumDays.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Numbers.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -120,6 +126,10 @@
       <item path="Employee.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Employee.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="NumDays.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="NumDays.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Numbers.cpp" ex="false" tool="1" flavor2="0">
       </item>

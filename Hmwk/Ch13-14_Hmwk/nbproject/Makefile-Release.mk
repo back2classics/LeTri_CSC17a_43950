@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Date.o \
 	${OBJECTDIR}/DayOfYear.o \
 	${OBJECTDIR}/Employee.o \
+	${OBJECTDIR}/NumDays.o \
 	${OBJECTDIR}/Numbers.o \
 	${OBJECTDIR}/Retail.o \
 	${OBJECTDIR}/main.o
@@ -93,6 +94,11 @@ ${OBJECTDIR}/Employee.o: Employee.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Employee.o Employee.cpp
+
+${OBJECTDIR}/NumDays.o: NumDays.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/NumDays.o NumDays.cpp
 
 ${OBJECTDIR}/Numbers.o: Numbers.cpp 
 	${MKDIR} -p ${OBJECTDIR}
