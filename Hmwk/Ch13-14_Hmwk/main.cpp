@@ -90,7 +90,7 @@ void problem1(){
     cout<<"In problem # 1"<<endl<<endl;
     int months, days, years;
     Date calendar;
-    cout << "Enter a month: ";
+    cout << "Enter the number of a month: ";
     do{
         while(!(cin >> months)){
             cout << "Invalid input. Please enter again: ";
@@ -101,6 +101,19 @@ void problem1(){
                 cout << "Invalid input. Please enter again: ";
         }
     }while(!(months >= 1 && months <= 12));
+    string whatMonth;
+    if(months == 1){whatMonth = "January";}
+    else if(months == 2){whatMonth = "February";}
+    else if(months == 3){whatMonth = "March";}
+    else if(months == 4){whatMonth = "April";}
+    else if(months == 5){whatMonth = "May";}
+    else if(months == 6){whatMonth = "June";}
+    else if(months == 7){whatMonth = "July";}
+    else if(months == 8){whatMonth = "August";}
+    else if(months == 9){whatMonth = "September";}
+    else if(months == 10){whatMonth = "October";}
+    else if(months == 11){whatMonth = "November";}
+    else{whatMonth = "December";}
     cout << endl;
     cout << "Enter a day: ";
     do{
@@ -123,8 +136,8 @@ void problem1(){
     cout << "Here are 3 formats of the dates you entered: " << endl;
     cout << calendar.getMonth() << '/' << calendar.getDay() << '/' <<
             calendar.getYear() << endl;
-    cout << "December " << calendar.getDay() << ", " << calendar.getYear() << endl;
-    cout << calendar.getDay() << " December " << calendar.getYear() << endl;
+    cout << whatMonth << " " << calendar.getDay() << ", " << calendar.getYear() << endl;
+    cout << calendar.getDay() << " " << whatMonth << " " << calendar.getYear() << endl;
     cout << endl;
 }
 
