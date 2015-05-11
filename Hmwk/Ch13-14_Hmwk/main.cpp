@@ -20,6 +20,7 @@ using namespace std;
 #include "NumDays.h"
 #include "Numbers.h"
 #include "Retail.h"
+#include "Month.h"
 
 //Function Prototypes
 void Menu();
@@ -317,15 +318,25 @@ void problem7(){
     cout << "You entered: " << num << endl;
     DayOfYear months(num);
     months.print();
-    cout << "++ has been implemented: " << endl;
-    months++;
-    months.print();
     
     cout << endl;
 }
 
 void problem8(){
     cout<<"In problem # 8"<<endl<<endl;
+    int num;
+    cout << "Enter any number from 1-365: ";
+    do{
+        cin >> num;
+    }while(!(num >= 1 && num <= 365));
+    cout << "You entered: " << num << endl;
+    cout << "The date is: ";
+    DayOfYear months(num);
+    months.print();
+    cout << "The overload operator++ has been implemented." << endl;
+    cout << "The new date is: ";
+    months++;
+    months.print();
     cout << endl;
 }
 
@@ -346,5 +357,24 @@ void problem9(){
 
 void problem10(){
     cout<<"In problem # 10"<<endl<<endl;
+    
+    string nMonth;
+    int monthN;
+    
+    cout << "Enter the name of a month: ";
+    cin >> nMonth;
+    nMonth[0] = toupper(nMonth[0]);
+    
+    Month school(nMonth);
+    cout << "You entered: " << nMonth << endl;
+    cout << nMonth << " is equivalent to the number " << school.getMonthNum() << endl;
+    
+    cout << "Now enter a number from 1-12: ";
+    cin >> monthN;
+    
+    Month college(monthN);
+    cout << "You entered: " << monthN << endl;
+    cout << monthN << " is equivalent to the month: " << college.getName() << endl;
+    
     cout << endl;
 }
