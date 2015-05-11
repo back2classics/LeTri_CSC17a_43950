@@ -329,11 +329,14 @@ void problem8(){
     do{
         cin >> num;
     }while(!(num >= 1 && num <= 365));
+    cout << endl;
     cout << "You entered: " << num << endl;
     cout << "The date is: ";
     DayOfYear months(num);
     months.print();
+    cout << endl;
     cout << "The overload operator++ has been implemented." << endl;
+    cout << endl;
     cout << "The new date is: ";
     months++;
     months.print();
@@ -350,6 +353,14 @@ void problem9(){
     NumDays week;
     week.setHour(hours);
     week.calc(hours);
+    cout << week.getHour() << " hours is equal to " << week.getDay() << 
+            " working days" << endl;
+    cout << endl;
+    cout << "The overload operator ++ has been implemented: " << endl;
+    cout << endl;
+    week++;
+    week.calc(week.getHour());
+    cout << "Here is the new work hour and day conversion: " << endl;
     cout << week.getHour() << " hours is equal to " << week.getDay() << 
             " working days" << endl;
     cout << endl;
