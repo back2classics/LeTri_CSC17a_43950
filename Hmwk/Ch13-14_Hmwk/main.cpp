@@ -367,14 +367,29 @@ void problem10(){
     
     Month school(nMonth);
     cout << "You entered: " << nMonth << endl;
-    cout << nMonth << " is equivalent to the number " << school.getMonthNum() << endl;
-    
+    cout << nMonth << " is equivalent to the number: " << school.getMonthNum() << endl;
+    cout << endl;
     cout << "Now enter a number from 1-12: ";
     cin >> monthN;
     
     Month college(monthN);
     cout << "You entered: " << monthN << endl;
     cout << monthN << " is equivalent to the month: " << college.getName() << endl;
+    cout << endl;
+    nMonth = college.getName();
+    school++;
+    cout << "The overload operator ++ has been implemented: " << endl;
+    cout << endl;
+    cout << "Modification of the first input: " << endl;
+    cout << "The new name of the month is: " << school.getName() << endl;
+    cout << "The new number of the month is: " << school.getMonthNum() << endl;
+    cout << endl;
+    college.setMonthNum(monthN);
+    college.setName(nMonth);
+    college++;
+    cout << "Modification of the second input: " << endl;
+    cout << "The new number of the month is: " << college.getMonthNum() << endl;
+    cout << "The new name of the month is: " << college.getName() << endl;
     
     cout << endl;
 }
