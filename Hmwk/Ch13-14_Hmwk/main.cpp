@@ -374,6 +374,7 @@ void problem10(){
     
     cout << "Enter the name of a month: ";
     cin >> nMonth;
+    
     nMonth[0] = toupper(nMonth[0]);
     
     Month school(nMonth);
@@ -381,7 +382,13 @@ void problem10(){
     cout << nMonth << " is equivalent to the number: " << school.getMonthNum() << endl;
     cout << endl;
     cout << "Now enter a number from 1-12: ";
-    cin >> monthN;
+    do{
+        cin >> monthN;
+        if(!(monthN >= 0 && monthN <= 12)){
+            cout << "Invalid input. Please enter again: ";
+        }
+    }while(!(monthN >= 0 && monthN <= 12));
+    cout << endl;
     
     Month college(monthN);
     cout << "You entered: " << monthN << endl;
