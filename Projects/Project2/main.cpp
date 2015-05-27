@@ -20,7 +20,14 @@ using namespace std;
 //Execution begins here
 int main(int argc, char** argv) {
 
+    //Testing everything to see if it works
     Board player, enemy;
+    player.setXaxis();
+    player.setYaxis();
+    player.setPos();
+    cout << player.getXaxis() << endl;
+    cout << player.getYaxis() << endl;
+    cout << player.getPos() << endl;
     
     return 0;
 }

@@ -10,15 +10,17 @@
 using namespace std;
 
 class Ship {
-protected: //protected for inheritance
+protected: //Protected for inheritance
     int ship1, ship2, ship3, ship4, ship5;
 public:
-    Ship();
+    Ship(); //Default constructor sets all values to respective sizes
+    //Setters set ship size
     void setShip1();
     void setShip2();
     void setShip3();
     void setShip4();
     void setShip5();
+    //Getters return ship size
     int getShip1() const { return ship1; }
     int getShip2() const { return ship2; }
     int getShip3() const { return ship3; }

@@ -13,12 +13,22 @@ using namespace std;
 class Board : public Ship {
 private:
     char **board; //2D Dynamic array
+    int xaxis, yaxis; //x and y axis for ship placement
+    char pos; //orientation of ship, either horizontal or vertical
 public:
-    Board();
-    ~Board();
-    void output(); //output board
-    static const int ROW = 10;
-    static const int COL = 10;
+    Board(); //Default constructor fills board with '.''s
+    ~Board(); //Destructor; Deletes 2D array
+    //Setters set the X and Y axis of ship's and positioning of ship
+    void setXaxis();
+    void setYaxis();
+    void setPos();
+    //Getters return X and Y axis, along with position
+    int getXaxis() const { return xaxis; }
+    int getYaxis() const { return yaxis; }
+    char getPos() const { return pos; }
+    void output(); //Prints the board
+    static const int ROW = 10; //Used for the board's row size
+    static const int COL = 10; //Used for the board's column size
 };
 
 #endif	/* BOARD_H */

@@ -18,7 +18,7 @@ Ship::Ship(){
     ship4 = SHIP + 1; //size = 4
     ship5 = CARRIER + 1; //size = 5
 }
-
+//Setters automatically set ship sizes to respective size according to ship #
 void Ship::setShip1(){
     ship1 = BOAT + 2;
 }

@@ -26,6 +26,47 @@ Board::~Board() {
     }
     delete [] board;
 }
+//Selecting xaxis for ship 
+void Board::setXaxis(){
+    cout << "Enter the coordinates of the X-axis from 0-9, if invalid you will"
+            " be asked to enter again: ";
+    do{
+        while(!(cin >> xaxis)){
+            cout << "Invalid input for X coordinate. Please enter again: ";
+            cin.clear();
+            cin.ignore();
+        }
+        if(!(xaxis >= 0 && xaxis <= 9)){
+            cout << "Invalid input for X coordinate. Please enter again: ";
+        }
+    }while(!(xaxis >= 0 && xaxis <= 9));
+}
+//Selecting yaxis for ship
+void Board::setYaxis(){
+    cout << "Enter the coordinates of the Y-axis from 0-9, if invalid you will"
+            " be asked to enter again: ";
+    do{
+        while(!(cin >> yaxis)){
+            cout << "Invalid input for Y coordinate. Please enter again: ";
+            cin.clear();
+            cin.ignore();
+        }
+        if(!(yaxis >= 0 && yaxis <= 9)){
+            cout << "Invalid input for Y coordinate. Please enter again: ";
+        }
+    }while(!(yaxis >= 0 && yaxis <= 9));
+}
+//Selecting orientation of ship, horizontal or vertical
+void Board::setPos(){
+    cout << "Enter the desired orientation of the ship, where [v] is vertical"
+            " and [h] is horizontal: ";
+    while(pos != 'v' && pos != 'h'){
+        cin >> pos;
+        if(pos != 'v' && pos != 'h'){
+            cout << "Invalid input. Please enter again: ";
+        }
+    }
+}
 //Output 2D array
 void Board::output(){
     cout << "A B C D E F G H I J  " << endl;
