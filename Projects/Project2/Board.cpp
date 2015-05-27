@@ -19,6 +19,10 @@ Board::Board() {
             board[i][j] = '.';
         }
     }
+    xaxis = 0;
+    yaxis = 0;
+    pos = 'a';
+    overlap = false;
 }
 //Destructor deleting 2D array
 Board::~Board() {
@@ -26,6 +30,15 @@ Board::~Board() {
         delete [] board[i];
     }
     delete [] board;
+}
+void Board::setXaxis(int x){
+    xaxis = x;
+}
+void Board::setYaxis(int y){
+    yaxis = y;
+}
+void Board::setPos(char p){
+    pos = p;
 }
 //Selecting xaxis for ship 
 void Board::setXaxis(){
@@ -61,17 +74,17 @@ void Board::setYaxis(){
 void Board::setPos(){
     cout << "Enter the desired orientation of the ship, where [v] is vertical"
             " and [h] is horizontal: ";
-    while(pos != 'v' && pos != 'h'){
+    do{
         cin >> pos;
         if(pos != 'v' && pos != 'h'){
             cout << "Invalid input. Please enter again: ";
         }
-    }
+    }while(pos != 'v' && pos != 'h');
 }
 //Checks if positioning and coordinates are valid
-void Board::checkPos(){
+void Board::checkPos(int size){
     if(tolower(pos == 'h')){
-        for(int i=0; i<ROW; i++){
+        for(int i=0; i<size; i++){
             if((xaxis + i) > 9){
                 while((xaxis + i) > 9){
                     cout << "The X coordinate you chose will make the ship go off"
@@ -88,7 +101,7 @@ void Board::checkPos(){
         }
     }
     else{
-        for(int i=0; i<COL; i++){
+        for(int i=0; i<size; i++){
             if((yaxis + i) > 9){
                 while((yaxis + i) > 9){
                     cout << "The Y coordinate you chose will make the ship go off"
@@ -117,6 +130,26 @@ void Board::setShip(int size){
             board[yaxis + i][xaxis] = '#'; // vertical ship position
         }
     }
+}
+//Checks if ships are overlapping on the board
+void Board::isOverlap(int size){
+    if(tolower(pos == 'h')){
+        for(int i=0; i<size; i++){
+            if(board[yaxis][xaxis + i] == '#'){
+                overlap = true;
+            }
+        }
+    }
+    else if(tolower(pos == 'v')){
+        for(int i=0; i<size; i++){
+            if(board[yaxis + i][xaxis] == '#'){
+                overlap = true;
+            }
+        }
+    }
+    else{
+        overlap = false;
+    } 
 }
 //Output 2D array
 void Board::output(){

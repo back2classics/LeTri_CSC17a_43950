@@ -15,22 +15,28 @@ private:
     char **board; //2D Dynamic array
     int xaxis, yaxis; //x and y axis for ship placement
     char pos; //orientation of ship, either horizontal or vertical
+    bool overlap; //Used for checking if ships overlap
 public:
     Board(); //Default constructor fills board with '.''s
     ~Board(); //Destructor; Deletes 2D array
     
     //Setters set the X and Y axis of ship's and positioning of ship
+    void setXaxis(int);
+    void setYaxis(int);
+    void setPos(char);
     void setXaxis();
     void setYaxis();
     void setPos();
     
-    //Getters return X and Y axis, along with position
+    //Getters return X and Y axis, along with position and overlap boolean
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
     char getPos() const { return pos; }
+    bool getOverlap() const { return overlap; }
     
-    void checkPos(); //Checks validity of coordinates and orientation of ships
+    void checkPos(int); //Checks validity of coordinates and orientation of ships
     void setShip(int); //Places the ships on the board
+    void isOverlap(int); //Checks if ships are overlapping on the board
     void output(); //Prints the board
     
     static const int ROW = 10; //Used for the board's row size

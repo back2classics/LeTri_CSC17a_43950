@@ -22,17 +22,33 @@ using namespace std;
 int main(int argc, char** argv) {
 
     //Testing everything to see if it works
+    //NOTE: Y COMES BEFORE X!!!
     Board player, enemy;
-    player.setXaxis();
-    player.setYaxis();
-    player.setPos();
-    player.checkPos();
-    player.setShip(player.getShip1());
+    int temp;
+    for(int i=0;i<5;i++){
+        if(i == 0){
+            temp = player.getShip1();
+        }
+        else if(i == 1){
+            temp = player.getShip2();
+        }
+        else if(i == 2){
+            temp = player.getShip3();
+        }
+        else if(i == 3){
+            temp = player.getShip4();
+        }
+        else{
+            temp = player.getShip5();
+        }
+        player.setYaxis();
+        player.setXaxis();
+        player.setPos();
+        player.checkPos(temp);
+        player.setShip(temp);
+    }
+    
     player.output();
-//    cout << player.getXaxis() << endl;
-//    cout << player.getYaxis() << endl;
-//    cout << player.getPos() << endl;
     
     return 0;
 }
-
