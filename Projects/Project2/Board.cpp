@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <cstring>
 #include "Board.h"
 using namespace std;
 //Default constructor
@@ -64,6 +65,56 @@ void Board::setPos(){
         cin >> pos;
         if(pos != 'v' && pos != 'h'){
             cout << "Invalid input. Please enter again: ";
+        }
+    }
+}
+//Checks if positioning and coordinates are valid
+void Board::checkPos(){
+    if(tolower(pos == 'h')){
+        for(int i=0; i<ROW; i++){
+            if((xaxis + i) > 9){
+                while((xaxis + i) > 9){
+                    cout << "The X coordinate you chose will make the ship go off"
+                            " of the game board, please enter a new valid X coordinate: ";
+                    do{
+                        while(!(cin >> xaxis)){
+                        cout << "Invalid input for X coordinate. Please enter again: ";
+                        cin.clear();
+                        cin.ignore();
+                        }
+                    }while(!(xaxis >= 0 && xaxis <= 9));
+                }
+            }
+        }
+    }
+    else{
+        for(int i=0; i<COL; i++){
+            if((yaxis + i) > 9){
+                while((yaxis + i) > 9){
+                    cout << "The Y coordinate you chose will make the ship go off"
+                            " of the game board, please enter a new valid Y coordinate: ";
+                    do{
+                        while(!(cin >> yaxis)){
+                             cout << "Invalid input for Y coordinate. Please enter again: ";
+                             cin.clear();
+                             cin.ignore();
+                        }
+                    }while(!(yaxis >= 0 && yaxis <= 9));
+                }
+            }
+        }
+    }
+}
+//Places the ships on the board according to the orientation and coords selected
+void Board::setShip(int size){
+    if(tolower(pos == 'h')){
+        for(int i=0; i<size; i++){
+            board[yaxis][xaxis + i] = '#'; // horizontal ship position
+        }
+    }
+    else{
+        for(int i=0; i<size; i++){
+            board[yaxis + i][xaxis] = '#'; // vertical ship position
         }
     }
 }

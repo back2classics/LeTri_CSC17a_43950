@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 //Global Variables
@@ -25,9 +26,12 @@ int main(int argc, char** argv) {
     player.setXaxis();
     player.setYaxis();
     player.setPos();
-    cout << player.getXaxis() << endl;
-    cout << player.getYaxis() << endl;
-    cout << player.getPos() << endl;
+    player.checkPos();
+    player.setShip(player.getShip1());
+    player.output();
+//    cout << player.getXaxis() << endl;
+//    cout << player.getYaxis() << endl;
+//    cout << player.getPos() << endl;
     
     return 0;
 }
