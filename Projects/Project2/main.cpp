@@ -115,6 +115,39 @@ int main(int argc, char** argv) {
             posTemp = 'v';
             enemy.setPos(posTemp);
         }
+        //enemy.checkE(temp);
+        //enemy.isOverlap(temp);
+//        if(enemy.getOverlap() == true){
+//            do{
+//                yTemp = rand() % 10; //X coord assigned 0-9
+//                xTemp = rand() % 10; //Y coord assigned 0-9
+//                enemy.setYaxis(yTemp); //Stores yTemp in enemy private member
+//                enemy.setXaxis(xTemp); //Stores xTemp in enemy private member
+//                tempPos = rand() % 2;
+//                if(tempPos == 0)
+//                {
+//                    posTemp = 'h';
+//                    enemy.setPos(posTemp);
+//                }
+//                else
+//                {
+//                    posTemp = 'v';
+//                    enemy.setPos(posTemp);
+//                }
+//                cout << "PROBLEM 1" << endl;
+//                enemy.checkE(temp);
+//                enemy.isOverlap(temp);
+//                cout << "MAKES IT PASSED THE FUNCTION" << endl;
+//            }while(enemy.getOverlap() == true);
+//            cout << "PROBLEM 2" << endl;
+//            enemy.checkE(temp);
+//            cout << "PROBLEM 3" << endl;
+//            enemy.spawnE(temp);
+//        }
+//        else{
+//            enemy.checkE(temp);
+//            enemy.spawnE(temp);
+//        }
         enemy.checkE(temp);
         enemy.spawnE(temp);
 //        cout << enemy.getYaxis() << endl;
