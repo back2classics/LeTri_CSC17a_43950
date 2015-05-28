@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
+#include <string>
 #include "Board.h"
 using namespace std;
 //Default constructor
@@ -30,6 +31,9 @@ Board::~Board() {
         delete [] board[i];
     }
     delete [] board;
+}
+void Board::setName(string n){
+    name = n;
 }
 void Board::setXaxis(int x){
     xaxis = x;
@@ -118,6 +122,27 @@ void Board::checkPos(int size){
         }
     }
 }
+//Checks if enemy's positioning and coordinates are valid
+void Board::checkE(int eSize){
+    if(tolower(pos == 'h')){
+        for(int i=0; i<eSize; i++){
+            if((xaxis + i) > 9){
+                while((xaxis + i) > 9){
+                    xaxis = rand() % 10;
+                }
+            }
+        }
+    }
+    else{
+        for(int i=0; i<eSize; i++){
+            if((yaxis + i) > 9){
+                while((yaxis + i) > 9){
+                    yaxis = rand() % 10;
+                }
+            }
+        }
+    }
+}
 //Places the ships on the board according to the orientation and coords selected
 void Board::setShip(int size){
     if(tolower(pos == 'h')){
@@ -127,6 +152,19 @@ void Board::setShip(int size){
     }
     else{
         for(int i=0; i<size; i++){
+            board[yaxis + i][xaxis] = '#'; // vertical ship position
+        }
+    }
+}
+//Places enemy's ships on board 
+void Board::spawnE(int eSize){
+    if(tolower(pos == 'h')){
+        for(int i=0; i<eSize; i++){
+            board[yaxis][xaxis + i] = '#'; // horizontal ship position
+        }
+    }
+    else{
+        for(int i=0; i<eSize; i++){
             board[yaxis + i][xaxis] = '#'; // vertical ship position
         }
     }

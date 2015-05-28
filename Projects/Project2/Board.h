@@ -7,6 +7,7 @@
 
 #ifndef BOARD_H
 #define	BOARD_H
+#include <string>
 #include "Ship.h"
 using namespace std;
 //Board class inherited from Ship class
@@ -16,11 +17,13 @@ private:
     int xaxis, yaxis; //x and y axis for ship placement
     char pos; //orientation of ship, either horizontal or vertical
     bool overlap; //Used for checking if ships overlap
+    string name; //Player or enemy name
 public:
     Board(); //Default constructor fills board with '.''s
     ~Board(); //Destructor; Deletes 2D array
     
-    //Setters set the X and Y axis of ship's and positioning of ship
+    //Setters set the X and Y axis of ship's and positioning of ship along with name
+    void setName(string);
     void setXaxis(int);
     void setYaxis(int);
     void setPos(char);
@@ -29,13 +32,16 @@ public:
     void setPos();
     
     //Getters return X and Y axis, along with position and overlap boolean
+    string getName() const { return name; }
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
     char getPos() const { return pos; }
     bool getOverlap() const { return overlap; }
     
     void checkPos(int); //Checks validity of coordinates and orientation of ships
+    void checkE(int); //Checks enemy's validity of coordinates and orientation of ships
     void setShip(int); //Places the ships on the board
+    void spawnE(int); //Places enemy's ships on respective board
     void isOverlap(int); //Checks if ships are overlapping on the board
     void output(); //Prints the board
     
