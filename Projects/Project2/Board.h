@@ -14,10 +14,12 @@ using namespace std;
 class Board : public Ship {
 private:
     char **board; //2D Dynamic array
-    int xaxis, yaxis; //x and y axis for ship placement
-    char pos; //orientation of ship, either horizontal or vertical
-    bool overlap; //Used for checking if ships overlap
     string name; //Player or enemy name
+    int xaxis, yaxis; //x and y axis for ship placement
+    int winLose; //Win or lose condition for either side
+    char pos; //orientation of ship, either horizontal or vertical
+    int hit; //Stores any hits of either side
+    bool overlap; //Used for checking if ships overlap
 public:
     Board(); //Default constructor fills board with '.''s
     ~Board(); //Destructor; Deletes 2D array
@@ -29,15 +31,20 @@ public:
     void setPos(char);
     void setXaxis();
     void setYaxis();
+    void setWinLose();
     void setPos();
+    void setHit();
     
-    //Getters return X and Y axis, along with position and overlap boolean
+    //Getters return X and Y axis and win/lose condition, along with position and overlap boolean
     string getName() const { return name; }
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
+    int getWinLose() const { return winLose; }
     char getPos() const { return pos; }
+    int getHit() const { return hit; } 
     bool getOverlap() const { return overlap; }
     
+    //Main Board functions
     void checkPos(int); //Checks validity of coordinates and orientation of ships
     void checkE(int); //Checks enemy's validity of coordinates and orientation of ships
     void setShip(int); //Places the ships on the board

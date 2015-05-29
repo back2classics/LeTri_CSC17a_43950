@@ -20,9 +20,12 @@ Board::Board() {
             board[i][j] = '.';
         }
     }
+    name = " ";
     xaxis = 0;
     yaxis = 0;
-    pos = 'a';
+    winLose = 0;
+    pos = ' ';
+    hit = 0;
     overlap = false;
 }
 //Destructor deleting 2D array
@@ -74,6 +77,16 @@ void Board::setYaxis(){
         }
     }while(!(yaxis >= 0 && yaxis <= 9));
 }
+//Finds out win or lose condition for both sides
+void Board::setWinLose(){
+    for(int i=0; i<COL; i++){
+        for(int j=0; j<ROW; j++){
+            if(board[i][j] == '#'){
+                winLose++;
+            }
+        }
+    }
+}
 //Selecting orientation of ship, horizontal or vertical
 void Board::setPos(){
     cout << "Enter the desired orientation of the ship, where [v] is vertical"
@@ -84,6 +97,17 @@ void Board::setPos(){
             cout << "Invalid input. Please enter again: ";
         }
     }while(pos != 'v' && pos != 'h');
+}
+//Checking for a hit and placing the shot if hit landed
+void Board::setHit(){
+    if(board[yaxis][xaxis] == '#'){
+        cout << "'s shot hit a ship!" << endl;
+        hit++;
+        board[yaxis][xaxis] = 'X';
+    }
+    else{
+        cout << "'s shot missed!" << endl;
+    }
 }
 //Checks if positioning and coordinates are valid
 void Board::checkPos(int size){

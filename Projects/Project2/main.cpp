@@ -157,6 +157,16 @@ int main(int argc, char** argv) {
     cout << enemy.getName() << "'s crew is ready and prepared for battle!" << endl;
     cout << "For testing purposes!" << endl;
     enemy.output();
+    //player.setWinLose();
+    enemy.setWinLose();
+    //cout << player.getName() << "'s win/lose condition is if " << player.getWinLose() << " ships sink!" << endl;
+    cout << enemy.getName() << "'s win/lose condition is if " << enemy.getWinLose() << " ships sink!" << endl;
+    cout << endl;
+    //Player's turn to fire at enemy begins here!
+    cout << player.getName() << ", it is your turn!" << endl;
+    cout << player.getName() << ", you can fire at the enemy once!" << endl;
+    cout << "Choose your shot coordinate now!" << endl;
+    
     
     return 0;
 }
