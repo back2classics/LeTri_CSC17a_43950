@@ -100,10 +100,8 @@ int main(int argc, char** argv) {
         else{
             temp = enemy.getShip5();
         }
-        yTemp = rand() % 10; //X coord assigned 0-9
-        xTemp = rand() % 10; //Y coord assigned 0-9
-        enemy.setYaxis(yTemp); //Stores yTemp in enemy private member
-        enemy.setXaxis(xTemp); //Stores xTemp in enemy private member
+        enemy.setYaxis(rand() % 10); //Stores yTemp in enemy private member
+        enemy.setXaxis(rand() % 10); //Stores xTemp in enemy private member
         tempPos = rand() % 2;
         if(tempPos == 0)
         {
@@ -115,44 +113,33 @@ int main(int argc, char** argv) {
             posTemp = 'v';
             enemy.setPos(posTemp);
         }
-        //enemy.checkE(temp);
-        //enemy.isOverlap(temp);
-//        if(enemy.getOverlap() == true){
-//            do{
-//                yTemp = rand() % 10; //X coord assigned 0-9
-//                xTemp = rand() % 10; //Y coord assigned 0-9
-//                enemy.setYaxis(yTemp); //Stores yTemp in enemy private member
-//                enemy.setXaxis(xTemp); //Stores xTemp in enemy private member
-//                tempPos = rand() % 2;
-//                if(tempPos == 0)
-//                {
-//                    posTemp = 'h';
-//                    enemy.setPos(posTemp);
-//                }
-//                else
-//                {
-//                    posTemp = 'v';
-//                    enemy.setPos(posTemp);
-//                }
-//                cout << "PROBLEM 1" << endl;
-//                enemy.checkE(temp);
-//                enemy.isOverlap(temp);
-//                cout << "MAKES IT PASSED THE FUNCTION" << endl;
-//            }while(enemy.getOverlap() == true);
-//            cout << "PROBLEM 2" << endl;
-//            enemy.checkE(temp);
-//            cout << "PROBLEM 3" << endl;
-//            enemy.spawnE(temp);
-//        }
-//        else{
-//            enemy.checkE(temp);
-//            enemy.spawnE(temp);
-//        }
-        enemy.checkE(temp);
-        enemy.spawnE(temp);
-//        cout << enemy.getYaxis() << endl;
-//        cout << enemy.getXaxis() << endl;
-//        cout << enemy.getPos() << endl;
+        enemy.checkE(temp); //If rand() fails then check reassigns private members
+        enemy.isOverlap(temp); //Should always be passed on first loop
+        if(enemy.getOverlap() == true){
+            if(enemy.getPos() == 'h'){
+                if(enemy.getYaxis() <= 8){
+                    yTemp = enemy.getYaxis() + 1;
+                }
+                else{
+                    yTemp = enemy.getYaxis() - 1;
+                }
+                enemy.setYaxis(yTemp);
+            }
+            else{
+                if(enemy.getXaxis() <= 8){
+                    xTemp = enemy.getXaxis() + 1;
+                }
+                else{
+                    xTemp = enemy.getXaxis() - 1;
+                }
+                enemy.setXaxis(xTemp);
+            }
+            enemy.spawnE(temp);
+        }
+        else{
+            enemy.checkE(temp);
+            enemy.spawnE(temp);
+        }
     }
     cout << enemy.getName() << "'s crew is ready and prepared for battle!" << endl;
     cout << "For testing purposes!" << endl;
