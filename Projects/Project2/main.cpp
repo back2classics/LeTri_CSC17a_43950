@@ -116,30 +116,45 @@ int main(int argc, char** argv) {
         enemy.checkE(temp); //If rand() fails then check reassigns private members
         enemy.isOverlap(temp); //Should always be passed on first loop
         if(enemy.getOverlap() == true){
-            if(enemy.getPos() == 'h'){
-                if(enemy.getYaxis() <= 8){
-                    yTemp = enemy.getYaxis() + 1;
-                }
-                else{
-                    yTemp = enemy.getYaxis() - 1;
-                }
-                enemy.setYaxis(yTemp);
-            }
-            else{
-                if(enemy.getXaxis() <= 8){
-                    xTemp = enemy.getXaxis() + 1;
-                }
-                else{
-                    xTemp = enemy.getXaxis() - 1;
-                }
-                enemy.setXaxis(xTemp);
-            }
-            enemy.spawnE(temp);
+            do{
+        enemy.setYaxis(rand() % 10); //Stores yTemp in enemy private member
+        enemy.setXaxis(rand() % 10); //Stores xTemp in enemy private member
+        tempPos = rand() % 2;
+        if(tempPos == 0)
+        {
+            posTemp = 'h';
+            enemy.setPos(posTemp);
         }
-        else{
-            enemy.checkE(temp);
-            enemy.spawnE(temp);
+        else
+        {
+            posTemp = 'v';
+            enemy.setPos(posTemp);
         }
+        enemy.checkE(temp); //If rand() fails then check reassigns private members
+        enemy.isOverlap(temp); //Should always be passed on first loop
+            }while(enemy.getOverlap() == true);
+//            if(enemy.getPos() == 'h'){
+//                if(enemy.getYaxis() <= 8){
+//                    yTemp = enemy.getYaxis() + 1;
+//                }
+//                else{
+//                    yTemp = enemy.getYaxis() - 1;
+//                }
+//                enemy.setYaxis(yTemp);
+//            }
+//            else{
+//                if(enemy.getXaxis() <= 8){
+//                    xTemp = enemy.getXaxis() + 1;
+//                }
+//                else{
+//                    xTemp = enemy.getXaxis() - 1;
+//                }
+//                enemy.setXaxis(xTemp);
+//            }
+//            enemy.spawnE(temp);
+        }
+        enemy.checkE(temp);
+        enemy.spawnE(temp);
     }
     cout << enemy.getName() << "'s crew is ready and prepared for battle!" << endl;
     cout << "For testing purposes!" << endl;

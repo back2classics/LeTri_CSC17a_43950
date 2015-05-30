@@ -196,22 +196,21 @@ void Board::spawnE(int eSize){
 //Checks if ships are overlapping on the board
 void Board::isOverlap(int size){
     if(tolower(pos == 'h')){
+        overlap = false;
         for(int i=0; i<size; i++){
             if(board[yaxis][xaxis + i] == '#'){
                 overlap = true;
             }
         }
     }
-    else if(tolower(pos == 'v')){
+    else{
+        overlap = false;
         for(int i=0; i<size; i++){
             if(board[yaxis + i][xaxis] == '#'){
                 overlap = true;
             }
         }
     }
-    else{
-        overlap = false;
-    } 
 }
 //Output 2D array
 void Board::output(){
