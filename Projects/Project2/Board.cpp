@@ -27,6 +27,8 @@ Board::Board() {
     pos = ' ';
     hit = 0;
     overlap = false;
+    isSink = false;
+    isWin = false;
 }
 //Destructor deleting 2D array
 Board::~Board() {
@@ -99,14 +101,14 @@ void Board::setPos(){
     }while(pos != 'v' && pos != 'h');
 }
 //Checking for a hit and placing the shot if hit landed
-void Board::setHit(){
+void Board::setHit(string n){
     if(board[yaxis][xaxis] == '#'){
-        cout << "'s shot hit a ship!" << endl;
+        cout << n << "'s shot hit a ship!" << endl;
         hit++;
         board[yaxis][xaxis] = 'X';
     }
     else{
-        cout << "'s shot missed!" << endl;
+        cout << n << "'s shot missed!" << endl;
     }
 }
 //Checks if positioning and coordinates are valid
@@ -210,6 +212,26 @@ void Board::isOverlap(int size){
                 overlap = true;
             }
         }
+    }
+}
+//Checks for a win on either side
+void Board::sink(int wl, string n){ //wl stands for win/lose
+    if(hit == wl){
+        cout << n << " has sunk all the opposing ships!" << endl;
+        cout << n << " is the winner!" << endl;
+        isSink = true;
+    }
+    else{
+        isSink = false;
+    }
+}
+//Declares win if condition of sink has been met
+void Board::checkWin(bool s){
+    if(s == true){
+        isWin = true;
+    }
+    else{
+        isWin = false;
     }
 }
 //Output 2D array
