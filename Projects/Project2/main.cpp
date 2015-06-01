@@ -28,9 +28,11 @@ int main(int argc, char** argv) {
     Process game;
     int temp; //Stores ship size used in for-loop
     int tempPos; //Stores 0 or 1 to determine position for enemy
+    int forChase; //Used to determine direction of chase
     char posTemp; //Stores the actual position in enemy private member
-    bool sink = false, eSink = false;
-    bool win = false;
+    bool sink = false, eSink = false; //Used to determine if player/enemy sunk
+    bool chase = false; //Used to determine if enemy will chase player
+    bool win = false; //Ends the game if true
     
     game.begin(); //Game starts here!
     player.output(); //Board preview before ship placement
@@ -113,9 +115,16 @@ int main(int argc, char** argv) {
         //Enemy's turn to fire at enemy begins here!
         if(!win){
             game.enemyShot();
-            player.setYaxis(rand() % 10); //Random coords chosen to fire at player
-            player.setXaxis(rand() % 10);
+            if(chase == false){
+                player.setYaxis(rand() % 10); //Random coords chosen to fire at player
+                player.setXaxis(rand() % 10);
+            }
+            else{
+                forChase = rand() % 2;
+                player.smartAI(forChase);
+            }
             player.setHit(game.getEName()); //Places any hits that landed
+            chase = player.startAI();
             eSink = player.sink(enemy.getWinLose(), game.getEName()); //Checks if player has sunk
             win = player.checkWin(eSink); //Checks if enemy has won
             game.aftermath(game.getPName());

@@ -228,6 +228,34 @@ bool Board::checkWin(bool s){
         return false;
     }
 }
+//Starts the enemy's AI that will continue to fire around area of last hit
+bool Board::startAI(){
+    if(board[yaxis][xaxis] == 'X'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+//Enemy's AI 
+void Board::smartAI(int what){
+    if(what == 0){ //horizontal firing
+        if(xaxis <= 8){
+            xaxis += 1;
+        }
+        else{
+            xaxis -= 1;
+        }
+    }
+    else{
+        if(yaxis <= 8){
+            yaxis += 1;
+        }
+        else{
+            yaxis -= 1;
+        }
+    }
+}
 //Output 2D array
 void Board::output(){
     cout << "A B C D E F G H I J  " << endl;
