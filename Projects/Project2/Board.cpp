@@ -20,7 +20,6 @@ Board::Board() {
             board[i][j] = '.';
         }
     }
-    name = " ";
     xaxis = 0;
     yaxis = 0;
     winLose = 0;
@@ -34,9 +33,6 @@ Board::~Board() {
         delete [] board[i];
     }
     delete [] board;
-}
-void Board::setName(string n){
-    name = n;
 }
 void Board::setXaxis(int x){
     xaxis = x;

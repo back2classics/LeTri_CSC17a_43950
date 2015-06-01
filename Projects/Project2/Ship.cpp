@@ -39,5 +39,27 @@ void Ship::setShip5(){
     ship5 = CARRIER + 1;
 }
 
-
+int Ship::setFleet(int i){
+    if(i == 0){
+        cout << "The ship that is going to be placed is of size " << BOAT + 2 << "." << endl;
+        return BOAT + 2;
+    }
+    else if(i == 1){
+        cout << "The ship that is going to be placed is of size " << CRUISER + 2 << "." << endl;
+        return CRUISER + 2;
+    }
+    else if(i == 2){
+        cout << "The ship that is going to be placed is of size " << SUB + 1 << "." << endl;
+        return SUB + 1;
+    }
+    else if(i == 3){
+        cout << "The ship that is going to be placed is of size " << SHIP + 1 << "." << endl;
+        return SHIP + 1;
+    }
+    else{
+        cout << "The ship that is going to be placed is of size " << CARRIER + 1 << "." << endl;
+        return CARRIER + 1;
+    }
+    cout << endl;
+}
 

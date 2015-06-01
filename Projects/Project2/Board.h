@@ -14,7 +14,6 @@ using namespace std;
 class Board : public Ship {
 private:
     char **board; //2D Dynamic array
-    string name; //Player or enemy name
     int xaxis, yaxis; //x and y axis for ship placement
     int winLose; //Win or lose condition for either side
     char pos; //orientation of ship, either horizontal or vertical
@@ -24,8 +23,7 @@ public:
     Board(); //Default constructor fills board with '.''s
     ~Board(); //Destructor; Deletes 2D array
     
-    //Setters set the X and Y axis of ship's and positioning of ship along with name
-    void setName(string);
+    //Setters set the X and Y axis of ship's and positioning of ship
     void setXaxis(int);
     void setYaxis(int);
     void setPos(char);
@@ -36,7 +34,6 @@ public:
     void setHit(string);
     
     //Getters return X and Y axis and win/lose condition, along with position and overlap boolean
-    string getName() const { return name; }
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
     int getWinLose() const { return winLose; }
