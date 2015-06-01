@@ -20,8 +20,6 @@ private:
     char pos; //orientation of ship, either horizontal or vertical
     int hit; //Stores any hits of either side
     bool overlap; //Used for checking if ships overlap
-    bool isSink; //Used to check for a win
-    bool isWin; //Declares a win
 public:
     Board(); //Default constructor fills board with '.''s
     ~Board(); //Destructor; Deletes 2D array
@@ -45,8 +43,6 @@ public:
     char getPos() const { return pos; }
     int getHit() const { return hit; } 
     bool getOverlap() const { return overlap; }
-    bool getSink() const { return isSink; }
-    bool getWin() const { return isWin; }
     
     //Main Board functions
     void checkPos(int); //Checks validity of coordinates and orientation of ships
@@ -54,8 +50,8 @@ public:
     void setShip(int); //Places the ships on the board
     void spawnE(int); //Places enemy's ships on respective board
     void isOverlap(int); //Checks if ships are overlapping on the board
-    void sink(int, string); //Checks for a win on either side
-    void checkWin(bool); //Declares win on either side
+    bool sink(int, string); //Checks for a win on either side
+    bool checkWin(bool); //Declares win on either side
     void output(); //Prints the board
     
     static const int ROW = 10; //Used for the board's row size

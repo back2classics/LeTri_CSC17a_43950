@@ -27,8 +27,6 @@ Board::Board() {
     pos = ' ';
     hit = 0;
     overlap = false;
-    isSink = false;
-    isWin = false;
 }
 //Destructor deleting 2D array
 Board::~Board() {
@@ -215,23 +213,23 @@ void Board::isOverlap(int size){
     }
 }
 //Checks for a win on either side
-void Board::sink(int wl, string n){ //wl stands for win/lose
+bool Board::sink(int wl, string n){ //wl stands for win/lose
     if(hit == wl){
         cout << n << " has sunk all the opposing ships!" << endl;
         cout << n << " is the winner!" << endl;
-        isSink = true;
+        return true;
     }
     else{
-        isSink = false;
+        return false;
     }
 }
 //Declares win if condition of sink has been met
-void Board::checkWin(bool s){
+bool Board::checkWin(bool s){
     if(s == true){
-        isWin = true;
+        return true;
     }
     else{
-        isWin = false;
+        return false;
     }
 }
 //Output 2D array

@@ -26,6 +26,7 @@ public:
     int getShip3() const { return ship3; }
     int getShip4() const { return ship4; }
     int getShip5() const { return ship5; }
+    
     enum shipSize {BOAT, CRUISER, SUB, SHIP, CARRIER}; //ship sizes
 };
 

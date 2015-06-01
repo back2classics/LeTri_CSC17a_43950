@@ -32,6 +32,8 @@ int main(int argc, char** argv) {
     char posTemp; //Stores the actual position in enemy private member
     string sailor, pirate; //Player and Enemy name
     string valid; //For yes or no questions
+    bool sink = false, eSink = false;
+    bool win = false;
     
     cout << "===============Welcome to Battleships!===============" << endl;
     do{
@@ -179,23 +181,25 @@ int main(int argc, char** argv) {
         enemy.setYaxis(); //Using enemy's Y to set coords to hit ships on the enemy's board
         enemy.setXaxis(); //Using enemy's X to set coords to hit ships on the enemy's board
         enemy.setHit(player.getName()); //Places any hits or prompts for misses with player's name
-        enemy.sink(player.getWinLose(), player.getName()); //Checks if win condition has been meet
-        enemy.checkWin(enemy.getSink()); //Declares win and ends the game
+        sink = enemy.sink(player.getWinLose(), player.getName()); //Checks if win condition has been meet
+        win = enemy.checkWin(sink); //Declares win and ends the game
         //Enemy's turn to fire at enemy begins here!
-        cout << "It is " << enemy.getName() << "'s turn now!" << endl;
-        cout << enemy.getName() << " can fire at you once!" << endl;
-        player.setYaxis(rand() % 10); //Random coords chosen to fire at player
-        player.setXaxis(rand() % 10);
-        player.setHit(enemy.getName()); //Places any hits that landed
-        player.sink(enemy.getWinLose(), enemy.getName()); //Checks if player has sunk
-        player.checkWin(player.getSink()); //Checks if enemy has won
-        cout << "Here is your board after the enemy fired!" << endl;
-        player.output();
-        cout << endl;
-        cout << "Here is the enemy's board after you fired!" << endl;
-        enemy.output();
-        cout << endl;
-    }while(enemy.getWin() == false || player.getWin() == false); //Ends game after either condition was met
+        if(!win){
+            cout << "It is " << enemy.getName() << "'s turn now!" << endl;
+            cout << enemy.getName() << " can fire at you once!" << endl;
+            player.setYaxis(rand() % 10); //Random coords chosen to fire at player
+            player.setXaxis(rand() % 10);
+            player.setHit(enemy.getName()); //Places any hits that landed
+            eSink = player.sink(enemy.getWinLose(), enemy.getName()); //Checks if player has sunk
+            win = player.checkWin(eSink); //Checks if enemy has won
+            cout << "Here is your board after the enemy fired!" << endl;
+            player.output();
+            cout << endl;
+            cout << "Here is the enemy's board after you fired!" << endl;
+            enemy.output();
+            cout << endl;
+        }
+    }while(!win); //Ends game after either condition was met
     
     return 0;
 }
