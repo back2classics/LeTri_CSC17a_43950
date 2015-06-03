@@ -138,7 +138,14 @@ void Process::enemyShot(){
     cout << "It is " << eName << "'s turn now!" << endl;
     cout << eName << " can fire at you once!" << endl;
 }
-//Prompts user the aftermath of the game
+//Prompts Player 2 that they can fire at Player 1 once
+void Process::player2Shot(){
+    cout << eName << ", it is your turn!" << endl;
+    cout << eName << ", you can fire at the enemy once!" << endl;
+    cout << endl;
+    cout << "Choose your shot coordinate now!" << endl;
+}
+//Prompts user the aftermath of the turn in Player vs. AI
 void Process::aftermath(string n){
     if(n == pName){
         cout << endl;
@@ -146,5 +153,16 @@ void Process::aftermath(string n){
     }
     else{
         cout << "Here is the enemy's board after you fired!" << endl;
+    }
+}
+//Prompts the aftermath of the turn in Player vs. Player
+void Process::pvpAftermath(string n){
+    if(n == pName){
+        cout << endl;
+        cout << "Here is " << pName << "'s board after " << eName << " has fired!" << endl;
+    }
+    else{
+        cout << endl;
+        cout << "Here is " << eName << "'s board after " << pName << " has fired!" << endl;
     }
 }

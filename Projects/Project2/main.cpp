@@ -151,8 +151,7 @@ void playerVsPlayer(){
     Board player1, player2;
     Process game;
     int temp; //Stores ship size used in for-loop
-    bool sink = false, eSink = false; //Used to determine if player/enemy sunk
-    bool chase = false; //Used to determine if enemy will chase player
+    bool sink = false, eSink = false; //Used to determine if Player 1/2 has sunk
     bool win = false; //Ends the game if true
     
     //Player 1's ship placement begins here
@@ -207,6 +206,32 @@ void playerVsPlayer(){
     }
     game.p2End();
     player2.output();
-    
-    
+    player1.setWinLose();
+    player2.setWinLose();
+    game.winOrLose();
+    //Players take turns firing at each other here
+    do{
+        //Player 1 starts firing here
+        game.playerShot();
+        player2.setYaxis(); //Using Player 2's Y to set coords to hit ships on Player 2's board
+        player2.setXaxis(); //Using Player 2's X to set coords to hit ships on Player 2's board
+        player2.setHit(game.getPName()); //Places any hits or prompts for misses with player's name
+        sink = player2.sink(player1.getWinLose(), game.getPName()); //Checks if win condition has been meet
+        win = player2.checkWin(sink); //Declares win and ends the game
+        //Player 2 starts firing here
+        if(!win){
+            game.player2Shot();
+            player1.setYaxis(); //Using Player 2's Y to set coords to hit ships on Player 2's board
+            player1.setXaxis(); //Using Player 2's X to set coords to hit ships on Player 2's board
+            player1.setHit(game.getEName()); //Places any hits or prompts for misses with player's name
+            eSink = player1.sink(player2.getWinLose(), game.getEName()); //Checks if win condition has been meet
+            win = player1.checkWin(eSink); //Declares win and ends the game
+            game.pvpAftermath(game.getPName());
+            player1.output();
+            cout << endl;
+            game.pvpAftermath(game.getEName());
+            player2.output();
+            cout << endl;
+        }
+    }while(!win); //Ends game after either condition was met
 }

@@ -34,7 +34,9 @@ public:
     void winOrLose(); //Prompts user the win/lose conditions of the game
     void playerShot(); //Prompts user that they can fire once at the enemy
     void enemyShot(); //Prompts user that enemy will fire at you once
-    void aftermath(string); //Prompts user what the aftermath of the game was
+    void player2Shot(); //Prompts player 2 that they can fire at Player 1 once
+    void aftermath(string); //Prompts user what the aftermath of the turn was
+    void pvpAftermath(string); //Prompts what the aftermath of the turn was
 
 };
 

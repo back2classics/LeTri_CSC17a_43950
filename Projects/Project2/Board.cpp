@@ -27,6 +27,13 @@ Board::Board() {
     hit = 0;
     overlap = false;
 }
+//Copy Constructor
+Board::Board(const Board &obj){
+    xaxis = obj.getXaxis();
+    yaxis = obj.getYaxis();
+    winLose = obj.getWinLose();
+    hit = obj.getHit();
+}
 //Destructor deleting 2D array
 Board::~Board() {
     for(int i=0; i<ROW; i++){
