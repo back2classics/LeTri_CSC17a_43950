@@ -21,7 +21,7 @@ private:
     bool overlap; //Used for checking if ships overlap
 public:
     Board(); //Default constructor fills board with '.''s
-    ~Board(); //Destructor; Deletes 2D array
+    virtual ~Board(); //Destructor; Deletes 2D array
     
     //Setters set the X and Y axis of ship's and positioning of ship
     void setXaxis(int);

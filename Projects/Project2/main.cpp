@@ -18,11 +18,20 @@ using namespace std;
 #include "Process.h"
 
 //Function Prototypes
+void playerVsAI(); //Player vs. AI game mode
+void playerVsPlayer(); //Player vs. Player game mode
 
 //Execution begins here
 int main(int argc, char** argv) {
 
     srand(time(0)); //Used for randomly spawning enemy's board
+    //playerVsAI();
+    //playerVsPlayer();
+    
+    return 0;
+}
+
+void playerVsAI(){
     //Variables && Objects
     Board player, enemy;
     Process game;
@@ -135,6 +144,69 @@ int main(int argc, char** argv) {
             cout << endl;
         }
     }while(!win); //Ends game after either condition was met
+}
+
+void playerVsPlayer(){
+    //Variables && Objects
+    Board player1, player2;
+    Process game;
+    int temp; //Stores ship size used in for-loop
+    bool sink = false, eSink = false; //Used to determine if player/enemy sunk
+    bool chase = false; //Used to determine if enemy will chase player
+    bool win = false; //Ends the game if true
     
-    return 0;
+    //Player 1's ship placement begins here
+    game.beginP1(); //Player 1 starts here
+    player1.output(); //Board preview before ship placement
+    for(int i=0;i<5;i++){
+        temp = player1.setFleet(i);
+        player1.setYaxis();
+        player1.setXaxis();
+        player1.setPos();
+        player1.checkPos(temp);
+        player1.isOverlap(temp);
+        if(player1.getOverlap() == true){
+            do{
+                game.willOverlap();
+                player1.setYaxis();
+                player1.setXaxis();
+                player1.setPos();
+                player1.checkPos(temp);
+                player1.isOverlap(temp);
+            }while(player1.getOverlap() == true);
+        }
+        player1.setShip(temp);
+        game.updateBoard();
+        player1.output();
+    }
+    game.placeEnd();
+    player1.output();
+    //Player 2's ship placement starts here!
+    game.beginP2(); //Player 2 starts here
+    player2.output();
+    for(int i=0;i<5;i++){
+        temp = player2.setFleet(i);
+        player2.setYaxis();
+        player2.setXaxis();
+        player2.setPos();
+        player2.checkPos(temp);
+        player2.isOverlap(temp);
+        if(player2.getOverlap() == true){
+            do{
+                game.willOverlap();
+                player2.setYaxis();
+                player2.setXaxis();
+                player2.setPos();
+                player2.checkPos(temp);
+                player2.isOverlap(temp);
+            }while(player2.getOverlap() == true);
+        }
+        player2.setShip(temp);
+        game.updateBoard();
+        player2.output();
+    }
+    game.p2End();
+    player2.output();
+    
+    
 }

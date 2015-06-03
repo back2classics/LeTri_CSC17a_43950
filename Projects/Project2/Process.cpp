@@ -23,7 +23,7 @@ void Process::setPName(string p){
 void Process::setEName(string e){
     eName = e;
 }
-//Start up of game
+//Start up of game used in Player vs. AI
 void Process::begin(){
     cout << "===============Welcome to Battleships!===============" << endl;
     do{
@@ -41,6 +41,27 @@ void Process::begin(){
     cout << pName << "'s turn will now begin." << endl;
     cout << endl;
     cout << "This is what your board looks like! Plan accordingly!" << endl;
+}
+//Start up of the game used in Player vs. Player for Player 1
+void Process::beginP1(){
+    cout << "===============Welcome to Battleships!===============" << endl;
+    do{
+    cout << "Player 1, enter your SAILOR name! : ";
+    cin >> pName;
+    cout << "Player 2, enter your SAILOR name! : ";
+    cin >> eName;
+    cout << "Player 1, your name is " << pName << ", and Player 2, your "
+            " name is " << eName << "." << endl;
+    cout << "Is this correct? Enter [y] or [n]: ";
+    cin >> valid;
+    }while(tolower(valid[0] == 'n'));
+    cout << endl;
+    cout << pName << ", give your crew orders!" << endl;
+    cout << pName << "'s turn will now begin." << endl;
+    cout << endl;
+    cout << "This is what your board looks like! Plan accordingly!" << endl;
+    cout << eName << " should now turn away while " << pName << " sets up "
+            " his/her board!" << endl;
 }
 //Prompts user that ships will overlap
 void Process::willOverlap(){
@@ -62,7 +83,7 @@ void Process::placeEnd(){
     cout << "Here is your board after all the ships have been placed!" << endl;
     cout << endl;
 }
-//Prompts that enemy has began placing ships
+//Prompts that enemy has began placing ships in Player vs. AI
 void Process::enemyBegin(){
     cout << endl;
     cout << "Scallywag " << eName << " has begun giving his/her orders!" << endl;
@@ -72,10 +93,29 @@ void Process::enemyBegin(){
         cout << "Generating enemy battlefield..." << endl;
     }
 }
+//Player 2's turn to begin setting up
+void Process::beginP2(){
+    cout << endl;
+    cout << eName << ", give your crew orders!" << endl;
+    cout << eName << "'s turn will now begin." << endl;
+    cout << endl;
+    cout << "This is what your board looks like! Plan accordingly!" << endl;
+    cout << pName << " should now turn away while " << eName << " sets up "
+            "his/her board!" << endl;
+}
 //Prompts that enemy has finished placing ships
 void Process::enemyEnd(){
     cout << endl;
     cout << eName << "'s crew is ready and prepared for battle!" << endl;
+    cout << endl;
+}
+//Prompts that Player 2's turn has ended
+void Process::p2End(){
+    cout << endl;
+    cout << eName << "'s battle preparations have been complete!" << endl;
+    cout << eName << "'s crew is ready and prepared for battle!" << endl;
+    cout << eName << "'s turn has ended." << endl;
+    cout << "Here is your board after all the ships have been placed!" << endl;
     cout << endl;
 }
 //Prompts the user the win or lose conditions of the game
