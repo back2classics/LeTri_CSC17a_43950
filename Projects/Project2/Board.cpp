@@ -1,5 +1,5 @@
 /* 
- * File:   Board.cpp
+ * File: Board.cpp
  * Author: Tri
  * 
  * Created on May 25, 2015, 2:43 PM
@@ -280,6 +280,15 @@ void Board::smartAI(int what){
         else{
             yaxis -= 1;
         }
+    }
+}
+//Checks for signal to write to binary file
+bool Board::writeStat(){
+    if(board[yaxis][xaxis] == 'X'){
+        return true;
+    }
+    else{
+        return false;
     }
 }
 //Output 2D array

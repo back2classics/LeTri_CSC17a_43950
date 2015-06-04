@@ -1,13 +1,14 @@
 /* 
- * File:   main.cpp
+ * File: main.cpp
  * Author: Tri
- * Project 2
+ * Project 2 - CSC17a
  * Created on May 25, 2015, 2:01 PM
  */
 
 #include <cstdlib>
 #include <iostream>
 #include <cstring>
+#include <fstream>
 using namespace std;
 
 //Global Variables
@@ -16,6 +17,7 @@ using namespace std;
 #include "Ship.h"
 #include "Board.h"
 #include "Process.h"
+#include "VectorFileIO.h"
 
 //Function Prototypes
 void playerVsAI(); //Player vs. AI game mode
@@ -26,7 +28,7 @@ void getInfo(Ship &); //Polymorphic function
 int main(int argc, char** argv) {
 
     srand(time(0)); //Used for randomly spawning enemy's board
-    //playerVsAI();
+    playerVsAI();
     //playerVsPlayer();
     
     return 0;
@@ -36,13 +38,17 @@ void playerVsAI(){
     //Variables && Objects
     Board player, enemy;
     Process game;
+    fstream datFile; //Used for binary file IO
     int temp; //Stores ship size used in for-loop
     int tempPos; //Stores 0 or 1 to determine position for enemy
     int forChase; //Used to determine direction of chase
+    int size = 0; //Vector size, is later incremented
+    int holdX, holdY; //Used to hold the addresses of X and Y axis coords for File IO
     char posTemp; //Stores the actual position in enemy private member
     bool sink = false, eSink = false; //Used to determine if player/enemy sunk
     bool chase = false; //Used to determine if enemy will chase player
     bool win = false; //Ends the game if true
+    bool yesWrite = false; //Checks for signal to write to file
     
     game.begin(); //Game starts here!
     player.output(); //Board preview before ship placement
@@ -124,6 +130,7 @@ void playerVsAI(){
     player.setWinLose();
     enemy.setWinLose();
     game.winOrLose();
+    //datFile.open("data.txt", ios::out | ios::binary); //write to binary file
     do{
         //Player's turn to fire at enemy begins here!
         game.playerShot();
@@ -143,7 +150,15 @@ void playerVsAI(){
                 forChase = rand() % 2;
                 player.smartAI(forChase);
             }
+            holdX = player.getXaxis();
+            holdY = player.getYaxis();
             player.setHit(game.getEName()); //Places any hits that landed
+            yesWrite = player.writeStat(); //Signals to write to file
+//            if(yesWrite == true){
+//                size += 2;
+//                datFile.write(reinterpret_cast<char *>(&holdY), sizeof(int));
+//                datFile.write(reinterpret_cast<char *>(&holdX), sizeof(int));
+//            }
             chase = player.startAI();
             eSink = player.sink(enemy.getWinLose(), game.getEName()); //Checks if player has sunk
             win = player.checkWin(eSink); //Checks if enemy has won
@@ -155,6 +170,23 @@ void playerVsAI(){
             cout << endl;
         }
     }while(!win); //Ends game after either condition was met
+    //datFile.close(); //Close binary file
+    //VectorFileIO<int> stats(size);
+    //datFile.open("data.txt", ios::in | ios::binary); //read in binary to vector
+//    for(int i=0;i<size;i++){
+//        datFile.read(reinterpret_cast<char *>(&stats), sizeof(stats));
+//    }
+    //stats.push(size);
+    //datFile.close();
+//    cout << "The game is now over, here are the results!" << endl;
+//    cout << "These are all of the shots that " << game.getEName() << " landed on your ships" << endl;
+//    for(int i=0;i<size;i++){
+//        cout << '(';
+//        cout << stats[i];
+//        cout << ',';
+//        cout << stats[i + 1];
+//        cout << ')' << " ";
+//    }
 }
 
 void playerVsPlayer(){

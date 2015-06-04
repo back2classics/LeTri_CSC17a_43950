@@ -1,5 +1,5 @@
 /* 
- * File:   Board.h
+ * File: Board.h
  * Author: Tri
  *
  * Created on May 25, 2015, 2:43 PM
@@ -56,6 +56,7 @@ public:
     bool checkWin(bool); //Declares win on either side
     bool startAI(); //Starts the AI that will chase the player's ship
     void smartAI(int); //AI that will chase the player's ship
+    bool writeStat(); //Checks for signal to write to binary file
     void output(); //Prints the board
     virtual void shipInfo(); //Polymorphism
     

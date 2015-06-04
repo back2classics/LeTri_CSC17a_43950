@@ -1,5 +1,5 @@
 /* 
- * File:   Ship.cpp
+ * File: Ship.cpp
  * Author: Tri
  * 
  * Created on May 25, 2015, 2:12 PM
