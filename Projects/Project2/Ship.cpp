@@ -17,6 +17,11 @@ Ship::Ship(){
     ship3 = SUB + 1; //size = 3
     ship4 = SHIP + 1; //size = 4
     ship5 = CARRIER + 1; //size = 5
+    boat = "BOATS";
+    cruiser = "CRUISERS";
+    sub = "SUBMARINES";
+    ship = "SHIPS";
+    carrier = "CARRIERS";
 }
 //Setters automatically set ship sizes to respective size according to ship #
 void Ship::setShip1(){
@@ -63,3 +68,11 @@ int Ship::setFleet(int i){
     cout << endl;
 }
 
+void Ship::shipInfo(){
+    cout << "The 5 ship types are: " << endl;
+    cout << boat << endl;
+    cout << cruiser << endl;
+    cout << sub << endl;
+    cout << ship << endl;
+    cout << carrier << endl;
+}

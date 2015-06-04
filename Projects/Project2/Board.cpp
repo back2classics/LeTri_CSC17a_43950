@@ -275,3 +275,8 @@ void Board::output(){
         cout << i << endl;
     }
 }
+//Overrides shipInfo in Ship class
+void Board::shipInfo(){
+    cout << "The 4 ship sizes are: " << BOAT + 2 << ","
+         << SUB + 1 << "," << SHIP + 1 << " and " << CARRIER + 1 << endl;
+}

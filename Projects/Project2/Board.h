@@ -38,7 +38,7 @@ public:
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
     int getWinLose() const { return winLose; }
-    char getPos() const { return pos; }
+    virtual char getPos() const { return pos; } //Overridden getPos function 
     int getHit() const { return hit; } 
     bool getOverlap() const { return overlap; }
     
@@ -53,6 +53,7 @@ public:
     bool startAI(); //Starts the AI that will chase the player's ship
     void smartAI(int); //AI that will chase the player's ship
     void output(); //Prints the board
+    virtual void shipInfo(); //Polymorphism
     
     static const int ROW = 10; //Used for the board's row size
     static const int COL = 10; //Used for the board's column size

@@ -61,7 +61,7 @@ void Process::beginP1(){
     cout << endl;
     cout << "This is what your board looks like! Plan accordingly!" << endl;
     cout << eName << " should now turn away while " << pName << " sets up "
-            " his/her board!" << endl;
+            "his/her board!" << endl;
 }
 //Prompts user that ships will overlap
 void Process::willOverlap(){

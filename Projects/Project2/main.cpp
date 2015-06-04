@@ -20,6 +20,7 @@ using namespace std;
 //Function Prototypes
 void playerVsAI(); //Player vs. AI game mode
 void playerVsPlayer(); //Player vs. Player game mode
+void getInfo(Ship &); //Polymorphic function
 
 //Execution begins here
 int main(int argc, char** argv) {
@@ -156,6 +157,7 @@ void playerVsPlayer(){
     
     //Player 1's ship placement begins here
     game.beginP1(); //Player 1 starts here
+    getInfo(player1);
     player1.output(); //Board preview before ship placement
     for(int i=0;i<5;i++){
         temp = player1.setFleet(i);
@@ -234,4 +236,8 @@ void playerVsPlayer(){
             cout << endl;
         }
     }while(!win); //Ends game after either condition was met
+}
+//Used for polymorphism 
+void getInfo(Ship &obj){
+    obj.shipInfo();
 }
