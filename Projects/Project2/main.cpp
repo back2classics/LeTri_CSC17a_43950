@@ -49,8 +49,18 @@ void playerVsAI(){
     //Player's ship placement begins here
     for(int i=0;i<5;i++){
         temp = player.setFleet(i);
-        player.setYaxis();
-        player.setXaxis();
+        try{
+            player.setYaxis();
+        }
+        catch(Board::NegativeY){
+            cout << "ERROR: Cannot input negative values for the Y axis." << endl;
+        }
+        try{
+            player.setXaxis();
+        }
+        catch(Board::NegativeX){
+            cout << "ERROR: Cannot input negative values for the X axis." << endl;
+        }
         player.setPos();
         player.checkPos(temp);
         player.isOverlap(temp);
@@ -161,8 +171,18 @@ void playerVsPlayer(){
     player1.output(); //Board preview before ship placement
     for(int i=0;i<5;i++){
         temp = player1.setFleet(i);
-        player1.setYaxis();
-        player1.setXaxis();
+        try{
+            player1.setYaxis();
+        }
+        catch(Board::NegativeY){
+            cout << "ERROR: Cannot input negative values for the Y axis." << endl;
+        }
+        try{
+            player1.setXaxis();
+        }
+        catch(Board::NegativeX){
+            cout << "ERROR: Cannot input negative values for the X axis." << endl;
+        }
         player1.setPos();
         player1.checkPos(temp);
         player1.isOverlap(temp);
@@ -187,8 +207,18 @@ void playerVsPlayer(){
     player2.output();
     for(int i=0;i<5;i++){
         temp = player2.setFleet(i);
-        player2.setYaxis();
-        player2.setXaxis();
+        try{
+            player2.setYaxis();
+        }
+        catch(Board::NegativeY){
+            cout << "ERROR: Cannot input negative values for the Y axis." << endl;
+        }
+        try{
+            player2.setXaxis();
+        }
+        catch(Board::NegativeX){
+            cout << "ERROR: Cannot input negative values for the X axis." << endl;
+        }
         player2.setPos();
         player2.checkPos(temp);
         player2.isOverlap(temp);

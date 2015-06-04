@@ -20,7 +20,11 @@ private:
     int hit; //Stores any hits of either side
     bool overlap; //Used for checking if ships overlap
 public:
+    class NegativeX { }; //Exception class for negative X axis
+    class NegativeY { }; //Exception class for negative Y axis
     Board(); //Default constructor fills board with '.''s
+    Board(int); //Overloaded constructor
+    Board(int, int); //Overloaded constructor
     Board(const Board &); //Copy constructor
     virtual ~Board(); //Destructor; Deletes 2D array
     

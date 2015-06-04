@@ -12,7 +12,7 @@
 #include "Board.h"
 using namespace std;
 //Default constructor
-Board::Board() {
+Board::Board(){
     board = new char*[COL];
     for(int i=0; i<COL; i++){
         board[i] = new char[ROW];
@@ -27,7 +27,16 @@ Board::Board() {
     hit = 0;
     overlap = false;
 }
-//Copy Constructor
+//Overloaded constructor
+Board::Board(int wl){
+    winLose = wl;
+}
+//Overloaded constructor
+Board::Board(int x, int y){
+    xaxis = x;
+    yaxis = y;
+}
+//Copy constructor
 Board::Board(const Board &obj){
     xaxis = obj.getXaxis();
     yaxis = obj.getYaxis();
@@ -42,10 +51,20 @@ Board::~Board() {
     delete [] board;
 }
 void Board::setXaxis(int x){
-    xaxis = x;
+    if(x >= 0){
+        xaxis = x;
+    }
+    else{
+        throw NegativeX();
+    }
 }
 void Board::setYaxis(int y){
-    yaxis = y;
+    if(y >= 0){
+        yaxis = y;
+    }
+    else{
+        throw NegativeY();
+    }
 }
 void Board::setPos(char p){
     pos = p;
