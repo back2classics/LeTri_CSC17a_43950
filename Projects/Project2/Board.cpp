@@ -129,6 +129,7 @@ void Board::setHit(string n){
     }
     else{
         cout << n << "'s shot missed!" << endl;
+        board[yaxis][xaxis] = 'O';
     }
 }
 //Checks if positioning and coordinates are valid
@@ -254,6 +255,15 @@ bool Board::checkWin(bool s){
         return false;
     }
 }
+//Checks if space is occupied
+bool Board::occupy(){
+    if(board[yaxis][xaxis] == 'O'){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 //Starts the enemy's AI that will continue to fire around area of last hit
 bool Board::startAI(){
     if(board[yaxis][xaxis] == 'X'){
@@ -293,7 +303,7 @@ bool Board::writeStat(){
 }
 //Output 2D array
 void Board::output(){
-    cout << "A B C D E F G H I J  " << endl;
+    cout << "0 1 2 3 4 5 6 7 8 9  " << endl;
     for(int i=0; i<COL; i++)
     {
         for(int j=0; j<ROW; j++)

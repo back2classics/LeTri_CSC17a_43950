@@ -54,6 +54,7 @@ public:
     void isOverlap(int); //Checks if ships are overlapping on the board
     bool sink(int, string); //Checks for a win on either side
     bool checkWin(bool); //Declares win on either side
+    bool occupy(); //Checks for occupied space
     bool startAI(); //Starts the AI that will chase the player's ship
     void smartAI(int); //AI that will chase the player's ship
     bool writeStat(); //Checks for signal to write to binary file

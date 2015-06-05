@@ -23,13 +23,23 @@ using namespace std;
 void playerVsAI(); //Player vs. AI game mode
 void playerVsPlayer(); //Player vs. Player game mode
 void getInfo(Ship &); //Polymorphic function
+void Menu();
+int getN();
+void def(int);
 
 //Execution begins here
 int main(int argc, char** argv) {
 
     srand(time(0)); //Used for randomly spawning enemy's board
-    playerVsAI();
-    //playerVsPlayer();
+    int inN;
+    do{
+        Menu();
+        inN=getN();
+        switch(inN){
+        case 1: playerVsAI();break;
+        case 2: playerVsPlayer();break;
+        default: def(inN);}
+    }while(inN>=1&&inN<=2);
     
     return 0;
 }
@@ -185,6 +195,7 @@ void playerVsAI(){
     for(int i=0;i<size;i+=2){
         cout << '(' << newStats[i] << ',' << newStats[i + 1] << ')' << " ";
     }
+    cout << endl;
 }
 
 void playerVsPlayer(){
@@ -300,4 +311,21 @@ void playerVsPlayer(){
 //Used for polymorphism 
 void getInfo(Ship &obj){
     obj.shipInfo();
+}
+
+void Menu(){
+    cout<<"Menu for Project 2"<<endl;
+    cout<<"Type 1 for Player vs. AI"<<endl;
+    cout<<"Type 2 for Player vs. Player"<<endl;
+    cout<<"Type anything else to exit \n"<<endl;
+}
+
+int getN(){
+    int inN;
+    cin>>inN;
+    return inN;
+}
+
+void def(int inN){
+    cout<<"You typed "<<inN<<" to exit the program"<<endl;
 }
