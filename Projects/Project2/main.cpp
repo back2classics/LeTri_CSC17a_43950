@@ -39,11 +39,13 @@ void playerVsAI(){
     Board player, enemy;
     Process game;
     fstream datFile; //Used for binary file IO
+    int size = 0; //Vector size, is later incremented
+    int indx = 0; //Used to increment vector element position
+    VectorFileIO<int> stats(size);
+    VectorFileIO<int> newStats(size);
     int temp; //Stores ship size used in for-loop
     int tempPos; //Stores 0 or 1 to determine position for enemy
     int forChase; //Used to determine direction of chase
-    int size = 0; //Vector size, is later incremented
-    int holdX, holdY; //Used to hold the addresses of X and Y axis coords for File IO
     char posTemp; //Stores the actual position in enemy private member
     bool sink = false, eSink = false; //Used to determine if player/enemy sunk
     bool chase = false; //Used to determine if enemy will chase player
@@ -130,7 +132,6 @@ void playerVsAI(){
     player.setWinLose();
     enemy.setWinLose();
     game.winOrLose();
-    //datFile.open("data.txt", ios::out | ios::binary); //write to binary file
     do{
         //Player's turn to fire at enemy begins here!
         game.playerShot();
@@ -150,15 +151,16 @@ void playerVsAI(){
                 forChase = rand() % 2;
                 player.smartAI(forChase);
             }
-            holdX = player.getXaxis();
-            holdY = player.getYaxis();
             player.setHit(game.getEName()); //Places any hits that landed
             yesWrite = player.writeStat(); //Signals to write to file
-//            if(yesWrite == true){
-//                size += 2;
-//                datFile.write(reinterpret_cast<char *>(&holdY), sizeof(int));
-//                datFile.write(reinterpret_cast<char *>(&holdX), sizeof(int));
-//            }
+            if(yesWrite == true){
+                size += 2;
+                stats.push(size);
+                newStats.push(size);
+                stats[indx] = player.getYaxis();
+                stats[indx+1] = player.getXaxis();
+                indx += 2;
+            }
             chase = player.startAI();
             eSink = player.sink(enemy.getWinLose(), game.getEName()); //Checks if player has sunk
             win = player.checkWin(eSink); //Checks if enemy has won
@@ -170,23 +172,19 @@ void playerVsAI(){
             cout << endl;
         }
     }while(!win); //Ends game after either condition was met
-    //datFile.close(); //Close binary file
-    //VectorFileIO<int> stats(size);
-    //datFile.open("data.txt", ios::in | ios::binary); //read in binary to vector
-//    for(int i=0;i<size;i++){
-//        datFile.read(reinterpret_cast<char *>(&stats), sizeof(stats));
-//    }
-    //stats.push(size);
-    //datFile.close();
-//    cout << "The game is now over, here are the results!" << endl;
-//    cout << "These are all of the shots that " << game.getEName() << " landed on your ships" << endl;
-//    for(int i=0;i<size;i++){
-//        cout << '(';
-//        cout << stats[i];
-//        cout << ',';
-//        cout << stats[i + 1];
-//        cout << ')' << " ";
-//    }
+    datFile.open("data.txt", ios::out | ios::binary); //write to binary file
+    datFile.write(reinterpret_cast<char *>(&stats[0]), stats.size()*sizeof(int));
+    datFile.close(); //Close binary file
+    
+    datFile.open("data.txt", ios::in | ios::binary); //read in binary to vector   
+    datFile.read(reinterpret_cast<char *>(&newStats[0]), newStats.size()*sizeof(int));
+    datFile.close();
+    
+    cout << "The game is now over, here are the results!" << endl;
+    cout << "These are all of the shots that " << game.getEName() << " landed on your ships: " << endl;
+    for(int i=0;i<size;i+=2){
+        cout << '(' << newStats[i] << ',' << newStats[i + 1] << ')' << " ";
+    }
 }
 
 void playerVsPlayer(){
