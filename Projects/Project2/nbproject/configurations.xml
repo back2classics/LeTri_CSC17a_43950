@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Board.h</itemPath>
+      <itemPath>Procedure.h</itemPath>
       <itemPath>Process.h</itemPath>
       <itemPath>Ship.h</itemPath>
       <itemPath>VectorFileIO.h</itemPath>
@@ -47,6 +48,8 @@
       </item>
       <item path="Board.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Procedure.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Process.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Process.h" ex="false" tool="3" flavor2="0">
@@ -83,6 +86,8 @@
       <item path="Board.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Board.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Procedure.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Process.cpp" ex="false" tool="1" flavor2="0">
       </item>

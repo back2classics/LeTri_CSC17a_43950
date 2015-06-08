@@ -129,7 +129,6 @@ void Board::setHit(string n){
     }
     else{
         cout << n << "'s shot missed!" << endl;
-        board[yaxis][xaxis] = 'O';
     }
 }
 //Checks if positioning and coordinates are valid
@@ -249,15 +248,6 @@ bool Board::sink(int wl, string n){ //wl stands for win/lose
 //Declares win if condition of sink has been met
 bool Board::checkWin(bool s){
     if(s == true){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-//Checks if space is occupied
-bool Board::occupy(){
-    if(board[yaxis][xaxis] == 'O'){
         return true;
     }
     else{

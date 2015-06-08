@@ -15,13 +15,13 @@ protected: //Protected for inheritance
     string boat, cruiser, sub, ship, carrier;
 public:
     Ship(); //Default constructor sets all values to respective sizes
-    //Setters set ship size
+    //Mutators set ship size
     void setShip1();
     void setShip2();
     void setShip3();
     void setShip4();
     void setShip5();
-    //Getters return ship size
+    //Accessors return ship size
     int getShip1() const { return ship1; }
     int getShip2() const { return ship2; }
     int getShip3() const { return ship3; }

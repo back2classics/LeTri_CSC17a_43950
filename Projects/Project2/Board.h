@@ -28,7 +28,7 @@ public:
     Board(const Board &); //Copy constructor
     virtual ~Board(); //Destructor; Deletes 2D array
     
-    //Setters set the X and Y axis of ship's and positioning of ship
+    //Mutators set the X and Y axis of ship's and positioning of ship
     void setXaxis(int);
     void setYaxis(int);
     void setPos(char);
@@ -38,7 +38,7 @@ public:
     void setPos();
     void setHit(string);
     
-    //Getters return X and Y axis and win/lose condition, along with position and overlap boolean
+    //Accessors return X and Y axis and win/lose condition, along with position and overlap boolean
     int getXaxis() const { return xaxis; }
     int getYaxis() const { return yaxis; }
     int getWinLose() const { return winLose; }
@@ -54,7 +54,6 @@ public:
     void isOverlap(int); //Checks if ships are overlapping on the board
     bool sink(int, string); //Checks for a win on either side
     bool checkWin(bool); //Declares win on either side
-    bool occupy(); //Checks for occupied space
     bool startAI(); //Starts the AI that will chase the player's ship
     void smartAI(int); //AI that will chase the player's ship
     bool writeStat(); //Checks for signal to write to binary file

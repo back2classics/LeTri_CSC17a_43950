@@ -12,7 +12,7 @@
 #include <new>      
 #include <cstdlib>   
 using namespace std;
-
+//Template vector class used for file IO
 template <class T>
 class VectorFileIO
 {
@@ -31,11 +31,11 @@ public:
     VectorFileIO(const VectorFileIO &);
     //Destructor 
     ~VectorFileIO();
-    //Setter to return the array size
+    //Accessor to return the array size
     int size() const { return arraySize; }
     //Push the new value onto the array
     void push(T);
-    //Getter to return a specific element
+    //Mutator to return a specific element
     T getElementAt(int position);
     //Overloaded [] operator
     T &operator[](const int &);

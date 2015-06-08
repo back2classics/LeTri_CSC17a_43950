@@ -16,13 +16,15 @@ using namespace std;
 //User Libraries
 #include "Ship.h"
 #include "Board.h"
+#include "Procedure.h"
 #include "Process.h"
 #include "VectorFileIO.h"
 
 //Function Prototypes
 void playerVsAI(); //Player vs. AI game mode
 void playerVsPlayer(); //Player vs. Player game mode
-void getInfo(Ship &); //Polymorphic function
+void getInfo(Ship *); //Polymorphic function
+void condition(Procedure *); //Polymorphic function
 void Menu();
 int getN();
 void def(int);
@@ -51,8 +53,8 @@ void playerVsAI(){
     fstream datFile; //Used for binary file IO
     int size = 0; //Vector size, is later incremented
     int indx = 0; //Used to increment vector element position
-    VectorFileIO<int> stats(size);
-    VectorFileIO<int> newStats(size);
+    VectorFileIO<int> stats(size); //Template vector used to write to file
+    VectorFileIO<int> newStats(size); //Template vector used to read from file
     int temp; //Stores ship size used in for-loop
     int tempPos; //Stores 0 or 1 to determine position for enemy
     int forChase; //Used to determine direction of chase
@@ -195,7 +197,7 @@ void playerVsAI(){
     for(int i=0;i<size;i+=2){
         cout << '(' << newStats[i] << ',' << newStats[i + 1] << ')' << " ";
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
 void playerVsPlayer(){
@@ -208,7 +210,7 @@ void playerVsPlayer(){
     
     //Player 1's ship placement begins here
     game.beginP1(); //Player 1 starts here
-    getInfo(player1);
+    getInfo(&player1); //Using Polymorphic function 
     player1.output(); //Board preview before ship placement
     for(int i=0;i<5;i++){
         temp = player1.setFleet(i);
@@ -281,7 +283,7 @@ void playerVsPlayer(){
     player2.output();
     player1.setWinLose();
     player2.setWinLose();
-    game.winOrLose();
+    condition(&game); //Using Polymorphic function
     //Players take turns firing at each other here
     do{
         //Player 1 starts firing here
@@ -307,25 +309,28 @@ void playerVsPlayer(){
             cout << endl;
         }
     }while(!win); //Ends game after either condition was met
+    cout << endl << endl;
 }
 //Used for polymorphism 
-void getInfo(Ship &obj){
-    obj.shipInfo();
+void getInfo(Ship *obj){
+    obj->shipInfo();
 }
-
+//Used for polymorphism
+void condition(Procedure *obj){
+    obj->winOrLose();
+}
+//Menu function
 void Menu(){
     cout<<"Menu for Project 2"<<endl;
     cout<<"Type 1 for Player vs. AI"<<endl;
     cout<<"Type 2 for Player vs. Player"<<endl;
     cout<<"Type anything else to exit \n"<<endl;
 }
-
 int getN(){
     int inN;
     cin>>inN;
     return inN;
 }
-
 void def(int inN){
     cout<<"You typed "<<inN<<" to exit the program"<<endl;
 }

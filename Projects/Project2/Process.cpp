@@ -15,6 +15,10 @@ Process::Process(){
     pName = " ";
     eName = " ";
 }
+//Redefining Base Class Function
+void Process::setCondition(){
+    condition = 17;
+}
 //Sets player's name
 void Process::setPName(string p){
     pName = p;
@@ -121,8 +125,8 @@ void Process::p2End(){
 //Prompts the user the win or lose conditions of the game
 void Process::winOrLose(){
     cout << endl;
-    cout << pName << "'s win/lose condition is if 17 ships sink!" << endl;
-    cout << eName << "'s win/lose condition is if 17 ships sink!" << endl;
+    cout << pName << "'s win/lose condition is if 17 hits are made!" << endl;
+    cout << eName << "'s win/lose condition is if 17 hits are made!" << endl;
     cout << endl;
 }
 //Prompts user that they can fire once at the enemy
